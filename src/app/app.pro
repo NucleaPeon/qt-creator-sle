@@ -21,7 +21,9 @@ win32 {
     target.path = $$QTC_PREFIX/bin
     INSTALLS += target
 } else:macx {
-    LIBS += -framework CoreFoundation
+    LIBS += -framework CoreFoundation -framework Cocoa
+    OBJECTIVE_SOURCES += \
+        $$PWD/../shared/qtcocoautils/cocoainitializer.mm
     ICON = qtcreator.icns
     FILETYPES.files = profile.icns prifile.icns
     FILETYPES.path = Contents/Resources

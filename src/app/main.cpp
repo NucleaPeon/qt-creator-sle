@@ -59,6 +59,10 @@
 #include <qtsystemexceptionhandler.h>
 #endif
 
+#ifdef Q_OS_MAC
+#include "../shared/qtcocoautils/cocoainitializer.h"
+#endif
+
 using namespace ExtensionSystem;
 
 enum { OptionIndent = 4, DescriptionIndent = 34 };
@@ -299,7 +303,9 @@ int main(int argc, char **argv)
     // QML is unusable with the xlib backend
     QApplication::setGraphicsSystem(QLatin1String("raster"));
 #endif
-
+#ifdef Q_OS_MAC
+    CocoaInitializer initializer;
+#endif
     SharedTools::QtSingleApplication app((QLatin1String(appNameC)), argc, argv);
 
     const int threadCount = QThreadPool::globalInstance()->maxThreadCount();

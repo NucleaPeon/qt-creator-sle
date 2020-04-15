@@ -102,6 +102,7 @@ private:
     Core::GeneratedFiles generateFiles(const QWizard *w,
                                                QString *errorMessage) const;
     QString sourceSuffix() const;
+    QString objcSuffix() const;
     QString headerSuffix() const;
 
     static bool generateHeaderAndSource(const CppClassWizardParameters &params,

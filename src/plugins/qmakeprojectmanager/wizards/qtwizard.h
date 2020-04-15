@@ -64,10 +64,14 @@ protected:
 
 public:
     static QString templateDir();
+    static QString osxTemplateDir();
+    static QString osxFullTemplateDir();
 
     static QString sourceSuffix();
     static QString headerSuffix();
     static QString formSuffix();
+    static QString objcSuffix();
+    static QString objcppSuffix();
     static QString profileSuffix();
 
     // Query CppTools settings for the class wizard settings

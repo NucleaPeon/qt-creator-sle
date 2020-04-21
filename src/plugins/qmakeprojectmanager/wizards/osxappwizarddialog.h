@@ -27,8 +27,8 @@
 **
 ****************************************************************************/
 
-#ifndef GUIAPPWIZARDDIALOG_H
-#define GUIAPPWIZARDDIALOG_H
+#ifndef OSXAPPWIZARDDIALOG_H
+#define OSXAPPWIZARDDIALOG_H
 
 #include "qtwizard.h"
 #include "guistructs.h"
@@ -39,14 +39,12 @@ namespace Internal {
 struct QtProjectParameters;
 class FilesPage;
 
-// Additional parameters required besides QtProjectParameters
-
-class GuiAppWizardDialog : public BaseQmakeProjectWizardDialog
+class OSXAppWizardDialog : public BaseQmakeProjectWizardDialog
 {
     Q_OBJECT
 
 public:
-    explicit GuiAppWizardDialog(const QString &templateName,
+    explicit OSXAppWizardDialog(const QString &templateName,
                                 const QIcon &icon,
                                 bool showModulesPage,
                                 QWidget *parent,
@@ -66,4 +64,4 @@ private:
 } // namespace Internal
 } // namespace QmakeProjectManager
 
-#endif // GUIAPPWIZARDDIALOG_H
+#endif // OSXAPPWIZARDDIALOG_H

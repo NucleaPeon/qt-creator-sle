@@ -21,12 +21,16 @@ HEADERS += \
     profilehoverhandler.h \
     wizards/qtprojectparameters.h \
     wizards/guiappwizard.h \
+    wizards/osxappwizard.h \
+    wizards/osxfullappwizard.h \
     wizards/consoleappwizard.h \
     wizards/consoleappwizarddialog.h \
     wizards/libraryparameters.h \
     wizards/librarywizard.h \
     wizards/librarywizarddialog.h \
     wizards/guiappwizarddialog.h \
+    wizards/osxappwizarddialog.h \
+    wizards/osxfullappwizarddialog.h \
     wizards/emptyprojectwizard.h \
     wizards/emptyprojectwizarddialog.h \
     wizards/testwizard.h \
@@ -58,7 +62,8 @@ HEADERS += \
     findqmakeprofiles.h \
     qmakeprojectmanager_global.h \
     desktopqmakerunconfiguration.h \
-    profilecompletionassist.h
+    profilecompletionassist.h \
+    wizards/guistructs.h
 
 SOURCES += \
     qmakekitconfigwidget.cpp \
@@ -76,12 +81,16 @@ SOURCES += \
     profilehoverhandler.cpp \
     wizards/qtprojectparameters.cpp \
     wizards/guiappwizard.cpp \
+    wizards/osxappwizard.cpp \
+    wizards/osxfullappwizard.cpp \
     wizards/consoleappwizard.cpp \
     wizards/consoleappwizarddialog.cpp \
     wizards/libraryparameters.cpp \
     wizards/librarywizard.cpp \
     wizards/librarywizarddialog.cpp \
     wizards/guiappwizarddialog.cpp \
+    wizards/osxappwizarddialog.cpp \
+    wizards/osxfullappwizarddialog.cpp \
     wizards/emptyprojectwizard.cpp \
     wizards/emptyprojectwizarddialog.cpp \
     wizards/testwizard.cpp \
@@ -111,7 +120,8 @@ SOURCES += \
     librarydetailscontroller.cpp \
     findqmakeprofiles.cpp \
     desktopqmakerunconfiguration.cpp \
-    profilecompletionassist.cpp
+    profilecompletionassist.cpp \
+    wizards/guistructs.cpp
 
 FORMS += makestep.ui \
     qmakestep.ui \

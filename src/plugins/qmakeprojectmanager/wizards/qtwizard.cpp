@@ -70,6 +70,16 @@ QString QtWizard::headerSuffix()
     return preferredSuffix(QLatin1String(ProjectExplorer::Constants::CPP_HEADER_MIMETYPE));
 }
 
+QString QtWizard::objcSuffix()
+{
+    return preferredSuffix(QLatin1String(ProjectExplorer::Constants::OBJC_SOURCE_MIMETYPE));
+}
+
+QString QtWizard::objcppSuffix()
+{
+    return preferredSuffix(QLatin1String(ProjectExplorer::Constants::OBJCPP_SOURCE_MIMETYPE));
+}
+
 QString QtWizard::formSuffix()
 {
     return preferredSuffix(QLatin1String(ProjectExplorer::Constants::FORM_MIMETYPE));
@@ -106,6 +116,20 @@ QString QtWizard::templateDir()
 {
     QString rc = Core::ICore::resourcePath();
     rc += QLatin1String("/templates/qt4project");
+    return rc;
+}
+
+QString QtWizard::osxTemplateDir()
+{
+    QString rc = Core::ICore::resourcePath();
+    rc += QLatin1String("/templates/osxproject");
+    return rc;
+}
+
+QString QtWizard::osxFullTemplateDir()
+{
+    QString rc = Core::ICore::resourcePath();
+    rc += QLatin1String("/templates/osxfullapp");
     return rc;
 }
 

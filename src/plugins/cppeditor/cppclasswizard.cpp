@@ -98,6 +98,8 @@ void ClassNamePage::initParameters()
 {
     m_newClassWidget->setHeaderExtension(Core::MimeDatabase::preferredSuffixByType(QLatin1String(Constants::CPP_HEADER_MIMETYPE)));
     m_newClassWidget->setSourceExtension(Core::MimeDatabase::preferredSuffixByType(QLatin1String(Constants::CPP_SOURCE_MIMETYPE)));
+    m_newClassWidget->setSourceExtension(Core::MimeDatabase::preferredSuffixByType(QLatin1String(Constants::OBJCPP_SOURCE_MIMETYPE)));
+    m_newClassWidget->setSourceExtension(Core::MimeDatabase::preferredSuffixByType(QLatin1String(Constants::OBJC_SOURCE_MIMETYPE)));
     m_newClassWidget->setLowerCaseFiles(lowerCaseFiles());
 }
 
@@ -146,6 +148,11 @@ CppClassWizard::CppClassWizard()
 QString CppClassWizard::sourceSuffix() const
 {
     return preferredSuffix(QLatin1String(Constants::CPP_SOURCE_MIMETYPE));
+}
+
+QString CppClassWizard::objcSuffix() const
+{
+    return preferredSuffix(QLatin1String(Constants::OBJC_SOURCE_MIMETYPE));
 }
 
 QString CppClassWizard::headerSuffix() const

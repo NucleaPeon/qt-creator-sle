@@ -58,6 +58,8 @@ const char C_SOURCE_MIMETYPE[] = "text/x-csrc";
 const char C_HEADER_MIMETYPE[] = "text/x-chdr";
 const char CPP_SOURCE_MIMETYPE[] = "text/x-c++src";
 const char CPP_HEADER_MIMETYPE[] = "text/x-c++hdr";
+const char OBJC_SOURCE_MIMETYPE[] = "text/x-objcsrc";
+const char OBJCPP_SOURCE_MIMETYPE[] = "text/x-objc++src";
 
 const char WIZARD_CATEGORY[] = "O.C++";
 const char WIZARD_TR_CATEGORY[] = QT_TRANSLATE_NOOP("CppEditor", "C++");

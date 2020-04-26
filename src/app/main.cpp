@@ -303,10 +303,10 @@ int main(int argc, char **argv)
     // QML is unusable with the xlib backend
     QApplication::setGraphicsSystem(QLatin1String("raster"));
 #endif
+    SharedTools::QtSingleApplication app((QLatin1String(appNameC)), argc, argv);
 #ifdef Q_OS_MAC
     CocoaInitializer initializer;
 #endif
-    SharedTools::QtSingleApplication app((QLatin1String(appNameC)), argc, argv);
 
     const int threadCount = QThreadPool::globalInstance()->maxThreadCount();
     QThreadPool::globalInstance()->setMaxThreadCount(qMax(4, 2 * threadCount));

@@ -206,7 +206,7 @@ void Environment::prependOrSetLibrarySearchPath(const QString &value)
         prependOrSet(path, QDir::toNativeSeparators(value), QString(sep));
         break;
     }
-    default: // we could set DYLD_LIBRARY_PATH on Mac but it is unnecessary in practice
+    default:
         break;
     }
 }

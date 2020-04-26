@@ -192,6 +192,13 @@ void Environment::prependOrSetLibrarySearchPath(const QString &value)
         prependOrSet(path, QDir::toNativeSeparators(value), QString(sep));
         break;
     }
+    case OsTypeMac: {
+        const QString sep = QLatin1String(":");
+        const QString nativeValue = QDir::toNativeSeparators(value);
+        prependOrSet(QLatin1String("DYLD_LIBRARY_PATH"), nativeValue, sep);
+        prependOrSet(QLatin1String("DYLD_FRAMEWORK_PATH"), nativeValue, sep);
+        break;
+	}
     case OsTypeLinux:
     case OsTypeOtherUnix: {
         const QChar sep = QLatin1Char(':');

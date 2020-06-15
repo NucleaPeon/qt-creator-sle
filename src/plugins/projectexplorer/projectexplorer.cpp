@@ -1057,7 +1057,11 @@ void ProjectExplorerPlugin::loadAction()
 
     QString filename = QFileDialog::getOpenFileName(Core::ICore::dialogParent(),
                                                     tr("Load Project"), dir,
-                                                    d->m_projectFilterString);
+#ifdef Q_OS_MAC
+            d->m_projectFilterString, 0, QFileDialog::DontUseNativeDialog);
+#else
+            d->m_projectFilterString);
+#endif
     if (filename.isEmpty())
         return;
     QString errorMessage;
@@ -2851,9 +2855,15 @@ void ProjectExplorerPlugin::addNewSubproject()
 void ProjectExplorerPlugin::addExistingFiles()
 {
     QTC_ASSERT(d->m_currentNode, return);
-
     QStringList fileNames = QFileDialog::getOpenFileNames(ICore::mainWindow(),
-        tr("Add Existing Files"), directoryFor(d->m_currentNode));
+        tr("Add Existing Files"),
+#ifdef Q_OS_MAC
+        directoryFor(d->m_currentNode), d->m_projectFilterString,
+        0, QFileDialog::DontUseNativeDialog);
+#else
+        d->m_projectFilterString);
+#endif
+
     if (fileNames.isEmpty())
         return;
     addExistingFiles(fileNames);

@@ -361,7 +361,7 @@ QStringList ResourceView::fileNamesToAdd()
 {
     return QFileDialog::getOpenFileNames(this, tr("Open File"),
             m_qrcModel->absolutePath(QString()),
-            tr("All files (*)"));
+            tr("All files (*)"), 0, QFileDialog::DontUseNativeDialog);
 }
 
 bool ResourceView::load(const QString &fileName)

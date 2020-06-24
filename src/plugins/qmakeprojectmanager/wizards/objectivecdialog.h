@@ -17,35 +17,29 @@
 **
 ****************************************************************************/
 
-#ifndef OSXAPPWIZARD_H
-#define OSXAPPWIZARD_H
+#ifndef OBJCWIZARDDIALOG_H
+#define OBJCWIZARDDIALOG_H
 
 #include "qtwizard.h"
-#include "guistructs.h"
 
 namespace QmakeProjectManager {
 namespace Internal {
 
-class OSXAppWizard : public QtWizard
+struct QtProjectParameters;
+
+class ObjectiveCWizardDialog : public BaseQmakeProjectWizardDialog
 {
     Q_OBJECT
-
 public:
-    OSXAppWizard();
+    explicit ObjectiveCWizardDialog(const QString &templateName,
+                                    const QIcon &icon,
+                                    bool showModulesPage,
+                                    QWidget *parent, const Core::WizardDialogParameters &parameters);
 
-private:
-    QWizard *createWizardDialog(QWidget *parent,
-                                const Core::WizardDialogParameters &wizardDialogParameters) const;
-
-    Core::GeneratedFiles generateFiles(const QWizard *w, QString *errorMessage) const;
-
-private:
-    static bool parametrizeTemplate(const QString &templatePath, const QString &templateName,
-                                    const GuiAppParameters &params,
-                                    QString *target, QString *errorMessage);
+    QtProjectParameters parameters() const;
 };
 
 } // namespace Internal
 } // namespace QmakeProjectManager
 
-#endif // OSXAPPWIZARD_H
+#endif // OBJCWIZARDDIALOG_H

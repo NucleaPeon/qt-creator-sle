@@ -39,6 +39,7 @@
 #include "wizards/guiappwizard.h"
 #include "wizards/osxfullappwizard.h"
 #include "wizards/osxappwizard.h"
+#include "wizards/objectivec.h"
 #include "wizards/librarywizard.h"
 #include "wizards/testwizard.h"
 #include "wizards/emptyprojectwizard.h"
@@ -124,6 +125,7 @@ bool QmakeProjectManagerPlugin::initialize(const QStringList &arguments, QString
     addAutoReleasedObject(new GuiAppWizard);
     addAutoReleasedObject(new OSXFullAppWizard);
     addAutoReleasedObject(new OSXAppWizard);
+    addAutoReleasedObject(new ObjectiveCWizard);
     addAutoReleasedObject(new ConsoleAppWizard);
     addAutoReleasedObject(new QtQuickAppWizard);
     addAutoReleasedObject(new Html5AppWizard);

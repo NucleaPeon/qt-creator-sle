@@ -22,6 +22,8 @@ HEADERS += \
     wizards/qtprojectparameters.h \
     wizards/guiappwizard.h \
     wizards/osxappwizard.h \
+    wizards/objectivec.h \
+    wizards/objectivecdialog.h \
     wizards/osxfullappwizard.h \
     wizards/consoleappwizard.h \
     wizards/consoleappwizarddialog.h \
@@ -82,6 +84,8 @@ SOURCES += \
     wizards/qtprojectparameters.cpp \
     wizards/guiappwizard.cpp \
     wizards/osxappwizard.cpp \
+    wizards/objectivec.cpp \
+    wizards/objectivecdialog.cpp \
     wizards/osxfullappwizard.cpp \
     wizards/consoleappwizard.cpp \
     wizards/consoleappwizarddialog.cpp \

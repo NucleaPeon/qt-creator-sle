@@ -89,8 +89,8 @@ Core::GeneratedFiles
         QTextStream proStr(&contents);
         QtProjectParameters::writeProFileHeader(proStr);
         params.writeProFile(proStr);
-        proStr << "\n\nmacx {\n    LIBS += -framework Foundation\n    OBJECTIVE_SOURCES += "
-               << QFileInfo(sourceFileName).fileName() << " \n}\n";
+        proStr << "\n\nLIBS += -framework Foundation\n\nOBJECTIVE_SOURCES += "
+               << QFileInfo(sourceFileName).fileName() << "\n";
     }
     profile.setContents(contents);
     return Core::GeneratedFiles() <<  source << profile;

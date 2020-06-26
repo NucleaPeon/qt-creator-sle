@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/objectiveceditor">
+        <file>ObjectiveCEditor.mimetypes.xml</file>
+    </qresource>
+</RCC>

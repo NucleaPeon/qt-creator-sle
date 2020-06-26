@@ -1,0 +1,12 @@
+<plugin name=\"ObjectiveCEditor\" version=\"$$QTCREATOR_VERSION\" compatVersion=\"$$QTCREATOR_COMPAT_VERSION\">
+    <vendor>PeonDevelopments</vendor>
+    <copyright>(C) 2020 PeonDevelopments</copyright>
+    <license>
+This plugin may be used under the terms of the GNU Lesser General Public License version 2.1 as published by the Free Software Foundation.  Please review the following information to ensure the GNU Lesser General Public License version 2.1 requirements will be met: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+    </license>
+    <category>Objective C/C++</category>
+    <description>Editor and file creation wizards for Objective C.</description>
+    <url>https://www.github.com/NucleaPeon</url>
+    $$dependencyList
+</plugin>
+

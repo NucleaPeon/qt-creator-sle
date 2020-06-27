@@ -17,36 +17,19 @@
 **
 ****************************************************************************/
 
-#ifndef OJBCEDITORWIDGET_H
-#define OJBCEDITORWIDGET_H
+#include "objectivechighlighterfactory.h"
+#include "../objectiveceditorconstants.h"
+#include "objectivechighlighter.h"
 
-#include <texteditor/basetexteditor.h>
-#include <utils/uncommentselection.h>
+using namespace ObjectiveCEditor::Internal;
 
-namespace ObjectiveCEditor {
-namespace Internal {
-
-class EditorWidget : public TextEditor::BaseTextEditorWidget
+ObjectiveCHighlighterFactory::ObjectiveCHighlighterFactory()
 {
-    Q_OBJECT
+    setId(Constants::C_OBJECTIVEC_EDITOR_ID);
+    addMimeType(QLatin1String(Constants::OBJC_SOURCE_MIMETYPE));
+}
 
-public:
-    EditorWidget(QWidget *parent = 0);
-    EditorWidget(EditorWidget *other);
-    virtual ~EditorWidget();
-
-    virtual void unCommentSelection();
-
-protected:
-    TextEditor::BaseTextEditor *createEditor();
-
-private:
-    EditorWidget(TextEditor::BaseTextEditorWidget *); // avoid stupidity
-    void ctor();
-    Utils::CommentDefinition m_commentDefinition;
-};
-
-} // namespace Internal
-} // namespace PythonEditor
-
-#endif // OJBCEDITORWIDGET_H
+TextEditor::SyntaxHighlighter *ObjectiveCHighlighterFactory::createHighlighter() const
+{
+    return new ObjectiveCHighlighter;
+}

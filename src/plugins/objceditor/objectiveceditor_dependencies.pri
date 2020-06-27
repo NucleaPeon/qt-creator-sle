@@ -1,4 +1,4 @@
-QTC_PLUGIN_NAME = PythonEditor
+QTC_PLUGIN_NAME = ObjectiveCEditor
 QTC_LIB_DEPENDS += \
     extensionsystem \
     utils

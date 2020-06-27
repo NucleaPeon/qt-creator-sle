@@ -1,20 +1,10 @@
 /****************************************************************************
 **
-** Copyright (C) 2014 Digia Plc and/or its subsidiary(-ies).
-** Contact: http://www.qt-project.org/legal
-**
-** This file is part of Qt Creator.
-**
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and Digia.  For licensing terms and
-** conditions see http://qt.digia.com/licensing.  For further information
-** use the contact form at http://qt.digia.com/contact-us.
+** Copyright (C) 2020 PeonDevelopments 
+** Contact: Daniel Kettle <initial.dann@gmail.com>
 **
 ** GNU Lesser General Public License Usage
-** Alternatively, this file may be used under the terms of the GNU Lesser
+** This file may be used under the terms of the GNU Lesser
 ** General Public License version 2.1 as published by the Free Software
 ** Foundation and appearing in the file LICENSE.LGPL included in the
 ** packaging of this file.  Please review the following information to
@@ -28,7 +18,7 @@
 ****************************************************************************/
 
 /**
- * @brief The Highlighter class pre-highlights Python source using simple scanner.
+ * @brief The Highlighter class pre-highlights ObjectiveC source using simple scanner.
  *
  * Highlighter doesn't highlight user types (classes and enumerations), syntax
  * and semantic errors, unnecessary code, etc. It's implements only
@@ -37,18 +27,18 @@
  * Main highlight procedure is highlightBlock().
  */
 
-#include "pythonhighlighter.h"
-#include "lexical/pythonscanner.h"
+#include "objectivechighlighter.h"
+#include "lexical/objectivecscanner.h"
 
 #include <texteditor/basetextdocument.h>
 #include <texteditor/texteditorconstants.h>
 
-namespace PythonEditor {
+namespace ObjectiveCEditor {
 
-using namespace PythonEditor::Internal;
+using namespace ObjectiveCEditor::Internal;
 
 /**
- * @class PyEditor::Highlighter
+ * @class ObjCEditor::Highlighter
  * @brief Handles incremental lexical highlighting, but not semantic
  *
  * Incremental lexical highlighting works every time when any character typed
@@ -65,20 +55,20 @@ using namespace PythonEditor::Internal;
  * @endcode
  */
 
-PythonHighlighter::PythonHighlighter(QTextDocument *parent) :
+ObjectiveCHighlighter::ObjectiveCHighlighter(QTextDocument *parent) :
     TextEditor::SyntaxHighlighter(parent)
 {
     init();
 }
 
 /// New instance created when opening any document in editor
-PythonHighlighter::PythonHighlighter(TextEditor::BaseTextDocument *parent) :
+ObjectiveCHighlighter::ObjectiveCHighlighter(TextEditor::BaseTextDocument *parent) :
     TextEditor::SyntaxHighlighter(parent)
 {
     init();
 }
 
-void PythonHighlighter::init()
+void ObjectiveCHighlighter::init()
 {
     static QVector<TextEditor::TextStyle> categories;
     if (categories.isEmpty()) {
@@ -99,12 +89,12 @@ void PythonHighlighter::init()
 }
 
 /// Instance destroyed when one of documents closed from editor
-PythonHighlighter::~PythonHighlighter()
+ObjectiveCHighlighter::~ObjectiveCHighlighter()
 {
 }
 
 /**
- * @brief Highlighter::highlightBlock highlights single line of Python code
+ * @brief Highlighter::highlightBlock highlights single line of ObjectiveC code
  * @param text is single line without EOLN symbol. Access to all block data
  * can be obtained through inherited currentBlock() function.
  *
@@ -112,7 +102,7 @@ PythonHighlighter::~PythonHighlighter()
  * scans block using received state and sets initial highlighting for current
  * block. At the end, it saves internal state in current block.
  */
-void PythonHighlighter::highlightBlock(const QString &text)
+void ObjectiveCHighlighter::highlightBlock(const QString &text)
 {
     int initialState = previousBlockState();
     if (initialState == -1)
@@ -136,7 +126,7 @@ bool isImportKeyword(const QString &keyword)
  * @param initialState Initial state of scanner, retrieved from previous block
  * @return Final state of scanner, should be saved with current block
  */
-int PythonHighlighter::highlightLine(const QString &text, int initialState)
+int ObjectiveCHighlighter::highlightLine(const QString &text, int initialState)
 {
     Scanner scanner(text.constData(), text.size());
     scanner.setState(initialState);
@@ -164,7 +154,7 @@ int PythonHighlighter::highlightLine(const QString &text, int initialState)
 /**
  * @brief Highlights rest of line as import directive
  */
-void PythonHighlighter::highlightImport(Scanner &scanner)
+void ObjectiveCHighlighter::highlightImport(Scanner &scanner)
 {
     FormatToken tk;
     while ((tk = scanner.read()).format() != Format_EndOfBlock) {
@@ -175,4 +165,4 @@ void PythonHighlighter::highlightImport(Scanner &scanner)
     }
 }
 
-} // namespace PythonEditor
+} // namespace ObjectiveCEditor

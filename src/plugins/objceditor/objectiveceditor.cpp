@@ -1,20 +1,10 @@
 /****************************************************************************
 **
-** Copyright (C) 2014 Digia Plc and/or its subsidiary(-ies).
-** Contact: http://www.qt-project.org/legal
-**
-** This file is part of Qt Creator.
-**
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and Digia.  For licensing terms and
-** conditions see http://qt.digia.com/licensing.  For further information
-** use the contact form at http://qt.digia.com/contact-us.
+** Copyright (C) 2020 PeonDevelopments 
+** Contact: Daniel Kettle <initial.dann@gmail.com>
 **
 ** GNU Lesser General Public License Usage
-** Alternatively, this file may be used under the terms of the GNU Lesser
+** This file may be used under the terms of the GNU Lesser
 ** General Public License version 2.1 as published by the Free Software
 ** Foundation and appearing in the file LICENSE.LGPL included in the
 ** packaging of this file.  Please review the following information to
@@ -29,13 +19,13 @@
 
 /**
   \class PyEditor::Editor implements interface Core::IEditor
-  This editor makes possible to edit Python source files
+  This editor makes possible to edit ObjectiveC source files
   */
 
-#include "pythoneditor.h"
-#include "pythoneditorconstants.h"
-#include "pythoneditorplugin.h"
-#include "pythoneditorwidget.h"
+#include "objectiveceditor.h"
+#include "objectiveceditorconstants.h"
+#include "objectiveceditorplugin.h"
+#include "objectiveceditorwidget.h"
 
 #include <coreplugin/icore.h>
 #include <coreplugin/mimedatabase.h>
@@ -44,29 +34,29 @@
 
 #include <QFileInfo>
 
-namespace PythonEditor {
+namespace ObjectiveCEditor {
 namespace Internal {
 
-PythonEditor::PythonEditor(EditorWidget *editorWidget)
+ObjectiveCEditor::ObjectiveCEditor(EditorWidget *editorWidget)
     :BaseTextEditor(editorWidget)
 {
-    setId(Constants::C_PYTHONEDITOR_ID);
-    setContext(Core::Context(Constants::C_PYTHONEDITOR_ID,
+    setId(Constants::C_OBJECTIVECEDITOR_ID);
+    setContext(Core::Context(Constants::C_OBJECTIVECEDITOR_ID,
                              TextEditor::Constants::C_TEXTEDITOR));
 }
 
-PythonEditor::~PythonEditor()
+ObjectiveCEditor::~ObjectiveCEditor()
 {
 }
 
-Core::IEditor *PythonEditor::duplicate()
+Core::IEditor *ObjectiveCEditor::duplicate()
 {
     EditorWidget *widget = new EditorWidget(qobject_cast<EditorWidget *>(editorWidget()));
     TextEditor::TextEditorSettings::initializeEditor(widget);
     return widget->editor();
 }
 
-bool PythonEditor::open(QString *errorString,
+bool ObjectiveCEditor::open(QString *errorString,
                         const QString &fileName,
                         const QString &realFileName)
 {
@@ -76,4 +66,4 @@ bool PythonEditor::open(QString *errorString,
 }
 
 } // namespace Internal
-} // namespace PythonEditor
+} // namespace ObjectiveCEditor

@@ -1,20 +1,10 @@
 /****************************************************************************
 **
-** Copyright (C) 2014 Digia Plc and/or its subsidiary(-ies).
-** Contact: http://www.qt-project.org/legal
-**
-** This file is part of Qt Creator.
-**
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and Digia.  For licensing terms and
-** conditions see http://qt.digia.com/licensing.  For further information
-** use the contact form at http://qt.digia.com/contact-us.
+** Copyright (C) 2020 PeonDevelopments 
+** Contact: Daniel Kettle <initial.dann@gmail.com>
 **
 ** GNU Lesser General Public License Usage
-** Alternatively, this file may be used under the terms of the GNU Lesser
+** This file may be used under the terms of the GNU Lesser
 ** General Public License version 2.1 as published by the Free Software
 ** Foundation and appearing in the file LICENSE.LGPL included in the
 ** packaging of this file.  Please review the following information to
@@ -28,18 +18,18 @@
 ****************************************************************************/
 
 /**
- * @brief The FileWizard class - adds wizard for creating new Python source file
+ * @brief The FileWizard class - adds wizard for creating new ObjectiveC source file
  */
 
-#include "pythonfilewizard.h"
-#include "../pythoneditorconstants.h"
+#include "objectivecfilewizard.h"
+#include "../objectiveceditorconstants.h"
 
 #include <utils/filewizarddialog.h>
 #include <texteditor/textfilewizard.h>
 
 #include <QWizard>
 
-namespace PythonEditor {
+namespace ObjectiveCEditor {
 
 /**
  * @brief Initialize wizard and add new option to "New..." dialog.
@@ -48,11 +38,11 @@ namespace PythonEditor {
 FileWizard::FileWizard()
 {
     setWizardKind(Core::IWizard::FileWizard);
-    setId(QLatin1String(Constants::C_PY_SOURCE_WIZARD_ID));
-    setCategory(QLatin1String(Constants::C_PY_WIZARD_CATEGORY));
-    setDisplayCategory(QLatin1String(Constants::C_PY_DISPLAY_CATEGORY));
-    setDisplayName(FileWizard::tr(Constants::EN_PY_SOURCE_DISPLAY_NAME));
-    setDescription(FileWizard::tr(Constants::EN_PY_SOURCE_DESCRIPTION));
+    setId(QLatin1String(Constants::C_OBJC_SOURCE_WIZARD_ID));
+    setCategory(QLatin1String(Constants::C_OBJC_WIZARD_CATEGORY));
+    setDisplayCategory(QLatin1String(Constants::C_OBJC_DISPLAY_CATEGORY));
+    setDisplayName(FileWizard::tr(Constants::EN_OBJC_SOURCE_DISPLAY_NAME));
+    setDescription(FileWizard::tr(Constants::EN_OBJC_SOURCE_DESCRIPTION));
 }
 
 /**
@@ -85,12 +75,12 @@ Core::GeneratedFiles FileWizard::generateFiles(const QWizard *dialog,
     QString name = pWizard->fileName();
 
     name = Core::BaseFileWizard::buildFileName(
-                folder, name, QLatin1String(Constants::C_PY_EXTENSION));
+                folder, name, QLatin1String(Constants::C_OBJC_EXTENSION));
     Core::GeneratedFile file(name);
-    file.setContents(QLatin1String(Constants::C_PY_SOURCE_CONTENT));
+    file.setContents(QLatin1String(Constants::C_OBJC_SOURCE_CONTENT));
     file.setAttributes(Core::GeneratedFile::OpenEditorAttribute);
 
     return (Core::GeneratedFiles() << file);
 }
 
-} // namespace PythonEditor
+} // namespace ObjectiveCEditor

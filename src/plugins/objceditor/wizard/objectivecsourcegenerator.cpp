@@ -1,20 +1,10 @@
 /****************************************************************************
 **
-** Copyright (C) 2014 Digia Plc and/or its subsidiary(-ies).
-** Contact: http://www.qt-project.org/legal
-**
-** This file is part of Qt Creator.
-**
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and Digia.  For licensing terms and
-** conditions see http://qt.digia.com/licensing.  For further information
-** use the contact form at http://qt.digia.com/contact-us.
+** Copyright (C) 2020 PeonDevelopments 
+** Contact: Daniel Kettle <initial.dann@gmail.com>
 **
 ** GNU Lesser General Public License Usage
-** Alternatively, this file may be used under the terms of the GNU Lesser
+** This file may be used under the terms of the GNU Lesser
 ** General Public License version 2.1 as published by the Free Software
 ** Foundation and appearing in the file LICENSE.LGPL included in the
 ** packaging of this file.  Please review the following information to
@@ -27,18 +17,18 @@
 **
 ****************************************************************************/
 
-#include "pythonsourcegenerator.h"
+#include "objectivecsourcegenerator.h"
 #include <QSet>
 
-namespace PythonEditor {
+namespace ObjectiveCEditor {
 namespace Internal {
 
-static const char BASH_RUN_HEADER[] = "#!/usr/bin/env python\n";
+static const char BASH_RUN_HEADER[] = "#!/usr/bin/env objectivec\n";
 static const char ENCODING_HEADER[] = "# -*- coding: utf-8 -*-\n";
 
 SourceGenerator::SourceGenerator()
-    : m_pythonQtBinding(PySide)
-    , m_pythonQtVersion(Qt4)
+    : m_objectivecQtBinding(PySide)
+    , m_objectivecQtVersion(Qt4)
 {
 }
 
@@ -46,14 +36,14 @@ SourceGenerator::~SourceGenerator()
 {
 }
 
-void SourceGenerator::setPythonQtBinding(QtBinding binding)
+void SourceGenerator::setObjectiveCQtBinding(QtBinding binding)
 {
-    m_pythonQtBinding = binding;
+    m_objectivecQtBinding = binding;
 }
 
-void SourceGenerator::setPythonQtVersion(SourceGenerator::QtVersion version)
+void SourceGenerator::setObjectiveCQtVersion(SourceGenerator::QtVersion version)
 {
-    m_pythonQtVersion = version;
+    m_objectivecQtVersion = version;
 }
 
 QString SourceGenerator::generateClass(const QString &className,
@@ -176,13 +166,13 @@ QString SourceGenerator::qtModulesImport(const QSet<QString> &modules) const
 
     QLatin1String defaultBinding("PySide");
     QLatin1String fallbackBinding("PyQt4");
-    if (m_pythonQtBinding == PyQt)
+    if (m_objectivecQtBinding == PyQt)
         qSwap(defaultBinding, fallbackBinding);
 
     QString ret;
     ret.reserve(256);
     ret += QLatin1String("try:\n");
-    if (m_pythonQtBinding == PyQt)
+    if (m_objectivecQtBinding == PyQt)
         ret += slotsImport;
     foreach (const QString &name, modules)
         ret += QString::fromLatin1("    from %1 import %2\n")
@@ -190,7 +180,7 @@ QString SourceGenerator::qtModulesImport(const QSet<QString> &modules) const
                 .arg(name);
 
     ret += QLatin1String("except:\n");
-    if (m_pythonQtBinding != PyQt)
+    if (m_objectivecQtBinding != PyQt)
         ret += slotsImport;
     foreach (const QString &name, modules)
         ret += QString::fromLatin1("    from %1 import %2\n")
@@ -202,11 +192,11 @@ QString SourceGenerator::qtModulesImport(const QSet<QString> &modules) const
 
 QString SourceGenerator::moduleForQWidget() const
 {
-    if (m_pythonQtVersion == Qt4)
+    if (m_objectivecQtVersion == Qt4)
         return QLatin1String("QtGui");
     else
         return QLatin1String("QtWidgets");
 }
 
 } // namespace Internal
-} // namespace PythonEditor
+} // namespace ObjectiveCEditor

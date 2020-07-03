@@ -1,20 +1,10 @@
 /****************************************************************************
 **
-** Copyright (C) 2014 Digia Plc and/or its subsidiary(-ies).
-** Contact: http://www.qt-project.org/legal
-**
-** This file is part of Qt Creator.
-**
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and Digia.  For licensing terms and
-** conditions see http://qt.digia.com/licensing.  For further information
-** use the contact form at http://qt.digia.com/contact-us.
+** Copyright (C) 2020 PeonDevelopments 
+** Contact: Daniel Kettle <initial.dann@gmail.com>
 **
 ** GNU Lesser General Public License Usage
-** Alternatively, this file may be used under the terms of the GNU Lesser
+** This file may be used under the terms of the GNU Lesser
 ** General Public License version 2.1 as published by the Free Software
 ** Foundation and appearing in the file LICENSE.LGPL included in the
 ** packaging of this file.  Please review the following information to
@@ -27,11 +17,11 @@
 **
 ****************************************************************************/
 
-#include "pythonclasswizard.h"
-#include "pythonclasswizarddialog.h"
-#include "pythonclassnamepage.h"
-#include "pythonsourcegenerator.h"
-#include "../pythoneditorconstants.h"
+#include "objectivecclasswizard.h"
+#include "objectivecclasswizarddialog.h"
+#include "objectivecclassnamepage.h"
+#include "objectivecsourcegenerator.h"
+#include "../objectiveceditorconstants.h"
 #include <projectexplorer/projectexplorerconstants.h>
 #include <projectexplorer/session.h>
 #include <projectexplorer/projectexplorer.h>
@@ -42,17 +32,17 @@
 
 using namespace ProjectExplorer;
 
-namespace PythonEditor {
+namespace ObjectiveCEditor {
 namespace Internal {
 
 ClassWizard::ClassWizard()
 {
     setWizardKind(Core::IWizard::FileWizard);
-    setId(QLatin1String(Constants::C_PY_CLASS_WIZARD_ID));
-    setCategory(QLatin1String(Constants::C_PY_WIZARD_CATEGORY));
-    setDisplayCategory(QLatin1String(Constants::C_PY_DISPLAY_CATEGORY));
-    setDisplayName(ClassWizard::tr(Constants::EN_PY_CLASS_DISPLAY_NAME));
-    setDescription(ClassWizard::tr(Constants::EN_PY_CLASS_DESCRIPTION));
+    setId(QLatin1String(Constants::C_OBJC_CLASS_WIZARD_ID));
+    setCategory(QLatin1String(Constants::C_OBJC_WIZARD_CATEGORY));
+    setDisplayCategory(QLatin1String(Constants::C_OBJC_DISPLAY_CATEGORY));
+    setDisplayName(ClassWizard::tr(Constants::EN_OBJC_CLASS_DISPLAY_NAME));
+    setDescription(ClassWizard::tr(Constants::EN_OBJC_CLASS_DESCRIPTION));
 }
 
 QWizard *ClassWizard::createWizardDialog(
@@ -76,18 +66,18 @@ Core::GeneratedFiles ClassWizard::generateFiles(const QWizard *w,
     const ClassWizardParameters params = wizard->parameters();
 
     const QString fileName = Core::BaseFileWizard::buildFileName(
-                params.path, params.fileName, QLatin1String(Constants::C_PY_EXTENSION));
+                params.path, params.fileName, QLatin1String(Constants::C_OBJC_EXTENSION));
     Core::GeneratedFile sourceFile(fileName);
 
     SourceGenerator generator;
-    generator.setPythonQtBinding(SourceGenerator::PySide);
+//    generator.setObjectiveCQtBinding(SourceGenerator::PySide);
     Kit *kit = kitForWizard(wizard);
     if (kit) {
         QtSupport::BaseQtVersion *baseVersion = QtSupport::QtKitInformation::qtVersion(kit);
         if (baseVersion && baseVersion->qtVersion().majorVersion == 5)
-            generator.setPythonQtVersion(SourceGenerator::Qt5);
+            generator.setObjectiveCQtVersion(SourceGenerator::Qt5);
         else
-            generator.setPythonQtVersion(SourceGenerator::Qt4);
+            generator.setObjectiveCQtVersion(SourceGenerator::Qt4);
     }
 
     QString sourceContent = generator.generateClass(
@@ -114,4 +104,4 @@ Kit *ClassWizard::kitForWizard(const ClassWizardDialog *wizard) const
 }
 
 } // namespace Internal
-} // namespace PythonEditor
+} // namespace ObjectiveCEditor

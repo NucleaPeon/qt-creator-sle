@@ -34,7 +34,7 @@ SUBDIRS   = \
     qmlprojectmanager \
     glsleditor \
     pythoneditor \
-    objceditor \
+    objectiveceditor \
     mercurial \
     bazaar \
     classview \

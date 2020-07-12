@@ -43,7 +43,7 @@ Project {
         "projectexplorer/projectexplorer.qbs",
         "qbsprojectmanager/qbsprojectmanager.qbs",
         "pythoneditor/pythoneditor.qbs",
-        "objceditor/objectiveceditor.qbs",
+        "objectiveceditor/objectiveceditor.qbs",
 //        "qmldesigner/qmldesigner.qbs",
         "qmljseditor/qmljseditor.qbs",
         "qmljstools/qmljstools.qbs",

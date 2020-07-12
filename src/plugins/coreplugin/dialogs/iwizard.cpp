@@ -32,7 +32,7 @@
 #include <coreplugin/featureprovider.h>
 
 #include <extensionsystem/pluginmanager.h>
-
+#include <QDebug>
 #include <QStringList>
 
 /*!
@@ -150,6 +150,7 @@ template <class Predicate>
     ICore::emitNewItemsDialogRequested();
     // Filter all wizards
     const QList<IWizard*> allWizards = IWizard::allWizards();
+    qDebug() << "All Wizards" << allWizards;
     QList<IWizard*> rc;
     const QList<IWizard*>::const_iterator cend = allWizards.constEnd();
     for (QList<IWizard*>::const_iterator it = allWizards.constBegin(); it != cend; ++it)

@@ -33,7 +33,7 @@ const char C_EDITOR_DISPLAY_NAME[] =
  * File creation wizard
  ******************************************************************************/
 const char C_OBJC_WIZARD_CATEGORY[] = "U.ObjectiveC";
-const char C_OBJC_EXTENSION[] = ".py";
+const char C_OBJC_EXTENSION[] = ".m";
 const char C_OBJC_DISPLAY_CATEGORY[] = "ObjectiveC";
 
     // source

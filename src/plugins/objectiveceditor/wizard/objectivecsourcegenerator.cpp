@@ -27,8 +27,6 @@ static const char BASH_RUN_HEADER[] = "#!/usr/bin/env objectivec\n";
 static const char ENCODING_HEADER[] = "# -*- coding: utf-8 -*-\n";
 
 SourceGenerator::SourceGenerator()
-    : m_objectivecQtBinding(PySide)
-    , m_objectivecQtVersion(Qt4)
 {
 }
 
@@ -38,12 +36,12 @@ SourceGenerator::~SourceGenerator()
 
 void SourceGenerator::setObjectiveCQtBinding(QtBinding binding)
 {
-    m_objectivecQtBinding = binding;
+//    m_objectivecQtBinding = binding;
 }
 
 void SourceGenerator::setObjectiveCQtVersion(SourceGenerator::QtVersion version)
 {
-    m_objectivecQtVersion = version;
+//    m_objectivecQtVersion = version;
 }
 
 QString SourceGenerator::generateClass(const QString &className,
@@ -138,64 +136,61 @@ QString SourceGenerator::generateQtMain(const QString &windowTitle) const
 
     QString ret;
     ret.reserve(1024);
-    ret += QLatin1String(BASH_RUN_HEADER);
-    ret += QLatin1String(ENCODING_HEADER);
-    ret += QLatin1Char('\n');
-    ret += QLatin1String("import sys\n");
-    ret += qtModulesImport(qtModules);
-    ret += QLatin1String("from mainwindow import MainWindow\n");
-    ret += QLatin1Char('\n');
+//    ret += QLatin1String(BASH_RUN_HEADER);
+//    ret += QLatin1String(ENCODING_HEADER);
+//    ret += QLatin1Char('\n');
+//    ret += QLatin1String("import sys\n");
+//    ret += qtModulesImport(qtModules);
+//    ret += QLatin1String("from mainwindow import MainWindow\n");
+//    ret += QLatin1Char('\n');
 
-    ret += QString::fromLatin1(
-                "if __name__ == \'__main__\':\n"
-                "    app = %1.QApplication(sys.argv)\n"
-                "    win = MainWindow()\n"
-                "    win.setWindowTitle(u\'%2\')\n"
-                "    win.show()\n"
-                "    app.exec_()\n"
-                ).arg(moduleForQWidget()).arg(windowTitle);
+//    ret += QString::fromLatin1(
+//                "if __name__ == \'__main__\':\n"
+//                "    app = %1.QApplication(sys.argv)\n"
+//                "    win = MainWindow()\n"
+//                "    win.setWindowTitle(u\'%2\')\n"
+//                "    win.show()\n"
+//                "    app.exec_()\n"
+//                ).arg(moduleForQWidget()).arg(windowTitle);
 
     return ret;
 }
 
 QString SourceGenerator::qtModulesImport(const QSet<QString> &modules) const
 {
-    QString slotsImport;
-    if (modules.contains(QLatin1String("QtCore")))
-        slotsImport = QLatin1String("    from PyQt4.QtCore import pyqtSlot as Slot\n");
+//    QString slotsImport;
+//    if (modules.contains(QLatin1String("QtCore")))
+//        slotsImport = QLatin1String("    from PyQt4.QtCore import pyqtSlot as Slot\n");
 
-    QLatin1String defaultBinding("PySide");
-    QLatin1String fallbackBinding("PyQt4");
-    if (m_objectivecQtBinding == PyQt)
-        qSwap(defaultBinding, fallbackBinding);
+//    QLatin1String defaultBinding("PySide");
+//    QLatin1String fallbackBinding("PyQt4");
+//    if (m_objectivecQtBinding == PyQt)
+//        qSwap(defaultBinding, fallbackBinding);
 
     QString ret;
     ret.reserve(256);
-    ret += QLatin1String("try:\n");
-    if (m_objectivecQtBinding == PyQt)
-        ret += slotsImport;
-    foreach (const QString &name, modules)
-        ret += QString::fromLatin1("    from %1 import %2\n")
-                .arg(defaultBinding)
-                .arg(name);
+//    ret += QLatin1String("try:\n");
+//    if (m_objectivecQtBinding == PyQt)
+//        ret += slotsImport;
+//    foreach (const QString &name, modules)
+//        ret += QString::fromLatin1("    from %1 import %2\n")
+//                .arg(defaultBinding)
+//                .arg(name);
 
-    ret += QLatin1String("except:\n");
-    if (m_objectivecQtBinding != PyQt)
-        ret += slotsImport;
-    foreach (const QString &name, modules)
-        ret += QString::fromLatin1("    from %1 import %2\n")
-                .arg(fallbackBinding)
-                .arg(name);
+//    ret += QLatin1String("except:\n");
+//    if (m_objectivecQtBinding != PyQt)
+//        ret += slotsImport;
+//    foreach (const QString &name, modules)
+//        ret += QString::fromLatin1("    from %1 import %2\n")
+//                .arg(fallbackBinding)
+//                .arg(name);
 
     return ret;
 }
 
 QString SourceGenerator::moduleForQWidget() const
 {
-    if (m_objectivecQtVersion == Qt4)
-        return QLatin1String("QtGui");
-    else
-        return QLatin1String("QtWidgets");
+
 }
 
 } // namespace Internal

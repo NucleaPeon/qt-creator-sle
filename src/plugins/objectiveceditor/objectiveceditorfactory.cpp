@@ -18,7 +18,7 @@
 ****************************************************************************/
 
 #include "objectiveceditorfactory.h"
-#include "objectivecditorconstants.h"
+#include "objectiveceditorconstants.h"
 #include "objectiveceditorwidget.h"
 #include "objectiveceditorplugin.h"
 
@@ -35,11 +35,11 @@ namespace Internal {
 EditorFactory::EditorFactory(QObject *parent)
     : Core::IEditorFactory(parent)
 {
-    setId(Constants::C_OBJECTIVECEDITOR_ID);
+    setId(Constants::C_OBJECTIVEC_EDITOR_ID);
     setDisplayName(tr(Constants::C_EDITOR_DISPLAY_NAME));
-    addMimeType(QLatin1String(Constants::C_OBJC_IMETYPE));
+    addMimeType(QLatin1String(Constants::OBJC_SOURCE_MIMETYPE));
     new TextEditor::TextEditorActionHandler(this,
-                              Constants::C_OBJECTIVECEDITOR_ID,
+                              Constants::C_OBJECTIVEC_EDITOR_ID,
                               TextEditor::TextEditorActionHandler::Format
                               | TextEditor::TextEditorActionHandler::UnCommentSelection
                               | TextEditor::TextEditorActionHandler::UnCollapseAll);

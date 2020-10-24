@@ -214,7 +214,7 @@ bool ObjectiveCEditorPlugin::initialize(const QStringList &arguments, QString *e
     // Add MIME overlay icons (these icons displayed at Project dock panel)
     const QIcon icon = QIcon::fromTheme(QLatin1String(C_OBJC_MIME_ICON));
     if (!icon.isNull())
-        Core::FileIconProvider::registerIconOverlayForMimeType(icon, C_OBJC_MIMETYPE);
+        Core::FileIconProvider::registerIconOverlayForMimeType(icon, OBJC_SOURCE_MIMETYPE);
 
     // Add Python files and classes creation dialogs
     addAutoReleasedObject(new FileWizard);

@@ -40,8 +40,8 @@ namespace Internal {
 ObjectiveCEditor::ObjectiveCEditor(EditorWidget *editorWidget)
     :BaseTextEditor(editorWidget)
 {
-    setId(Constants::C_OBJECTIVECEDITOR_ID);
-    setContext(Core::Context(Constants::C_OBJECTIVECEDITOR_ID,
+    setId(Constants::C_OBJECTIVEC_EDITOR_ID);
+    setContext(Core::Context(Constants::C_OBJECTIVEC_EDITOR_ID,
                              TextEditor::Constants::C_TEXTEDITOR));
 }
 

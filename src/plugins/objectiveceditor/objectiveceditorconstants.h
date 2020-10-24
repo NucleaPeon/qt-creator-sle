@@ -25,7 +25,7 @@
 namespace ObjectiveCEditor {
 namespace Constants {
 
-const char C_OBJECTIVECEDITOR_ID[] = "ObjectiveCEditor.ObjectiveCEditor";
+const char C_OBJECTIVEC_EDITOR_ID[] = "ObjectiveCEditor.ObjectiveCEditor";
 const char C_EDITOR_DISPLAY_NAME[] =
         QT_TRANSLATE_NOOP("OpenWith::Editors", "ObjectiveC Editor");
 
@@ -59,7 +59,8 @@ const char OBJC_SOURCE_MIMETYPE[] = "text/x-objcsrc";
 const char OBJCPP_SOURCE_MIMETYPE[] = "text/x-objc++src";
 const char CPP_HEADER_MIMETYPE[] = "text/x-c++hdr";
 const char C_HEADER_MIMETYPE[] = "text/x-chdr";
-
+const char RC_OBJC_MIME_XML[] = ":/objectiveceditor/ObjectiveCEditor.mimetypes.xml";
+const char C_OBJC_MIME_ICON[] = "text-x-python";
 } // namespace Constants
 } // namespace ObjectiveCEditor
 

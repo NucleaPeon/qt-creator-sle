@@ -47,6 +47,6 @@ private:
 };
 
 } // namespace Internal
-} // namespace PythonEditor
+} // namespace ObjectiveCEditor
 
 #endif // OJBCEDITORWIDGET_H

@@ -46,11 +46,10 @@ public:
     void setObjectiveCQtVersion(QtVersion version);
 
     QString generateClass(const QString &className,
-                          const QString &baseClass,
                           Utils::NewClassWidget::ClassType classType) const;
 
-    QString generateQtMain(const QString &windowTitle) const;
-
+    QString generateObjectiveCPPMain(const QString &windowTitle) const;
+    QString generateObjectiveCMain(const QString &windowTitle) const;
 private:
     QString qtModulesImport(const QSet<QString> &modules) const;
     QString moduleForQWidget() const;

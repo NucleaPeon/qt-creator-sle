@@ -74,16 +74,15 @@ void ObjectiveCHighlighter::init()
     if (categories.isEmpty()) {
         categories << TextEditor::C_NUMBER
                    << TextEditor::C_STRING
-                   << TextEditor::C_KEYWORD
                    << TextEditor::C_TYPE
-                   << TextEditor::C_FIELD
-                   << TextEditor::C_JS_SCOPE_VAR
+                   << TextEditor::C_KEYWORD
                    << TextEditor::C_OPERATOR
+                   << TextEditor::C_PREPROCESSOR
+                   << TextEditor::C_LABEL
                    << TextEditor::C_COMMENT
                    << TextEditor::C_DOXYGEN_COMMENT
-                   << TextEditor::C_TEXT
-                   << TextEditor::C_VISUAL_WHITESPACE
-                   << TextEditor::C_STRING;
+                   << TextEditor::C_DOXYGEN_TAG
+                   << TextEditor::C_VISUAL_WHITESPACE;
     }
     setTextFormatCategories(categories);
 }
@@ -116,8 +115,7 @@ void ObjectiveCHighlighter::highlightBlock(const QString &text)
 static inline
 bool isImportKeyword(const QString &keyword)
 {
-    return (keyword == QLatin1String("import")
-            || keyword == QLatin1String("from"));
+    return (keyword == QLatin1String("#include"));
 }
 
 /**

@@ -23,6 +23,8 @@
 #include <coreplugin/basefilewizard.h>
 #include <utils/wizard.h>
 
+#include <QWizardPage>
+
 namespace Utils { class NewClassWidget; }
 namespace ProjectExplorer { class Kit; }
 
@@ -30,6 +32,16 @@ namespace ObjectiveCEditor {
 namespace Internal {
 
 class ClassWizardDialog;
+
+struct ClassWizardParameters
+{
+    QString className;
+    QString headerFile;
+    QString sourceFile;
+    QString baseClass;
+    QString path;
+    int classType;
+};
 
 class ClassWizard : public Core::BaseFileWizard
 {
@@ -42,11 +54,18 @@ private:
     QWizard *createWizardDialog(QWidget *parent,
                                 const Core::WizardDialogParameters &params) const;
 
+
     Core::GeneratedFiles generateFiles(const QWizard *w,
-                                       QString *errorMessage) const;
+                                               QString *errorMessage) const;
+    QString sourceSuffix() const;
+    QString headerSuffix() const;
 
     ProjectExplorer::Kit *kitForWizard(const ClassWizardDialog *wizard) const;
+
+    static bool generateHeaderAndSource(const ClassWizardParameters &params,
+                                        QString *header, QString *source);
 };
+
 
 } // namespace Internal
 } // namespace ObjectiveCEditor

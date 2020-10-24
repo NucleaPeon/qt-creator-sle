@@ -19,6 +19,8 @@
 
 #include "objectivecclasswizarddialog.h"
 #include "objectivecclassnamepage.h"
+#include "objectivecclasswizard.h"
+#include "../objectiveceditorconstants.h"
 
 #include <utils/newclasswidget.h>
 #include <coreplugin/basefilewizard.h>
@@ -44,13 +46,14 @@ ClassWizardParameters ClassWizardDialog::parameters() const
     ClassWizardParameters p;
     const Utils::NewClassWidget *ncw = m_classNamePage->newClassWidget();
     p.className = ncw->className();
-    p.fileName = ncw->sourceFileName();
-    p.baseClass = ncw->baseClassName();
+    p.sourceFile = ncw->className() + QLatin1Char('.') + QLatin1Char('m');
+    p.headerFile = ncw->className() + QLatin1Char('.') + QLatin1Char('h');
     p.path = ncw->path();
     p.classType = ncw->classType();
 
     return p;
 }
+
 
 void ClassWizardDialog::setExtraValues(const QVariantMap &extraValues)
 {

@@ -38,10 +38,7 @@ const char C_OBJC_DISPLAY_CATEGORY[] = "ObjectiveC";
 
     // source
 const char C_OBJC_SOURCE_WIZARD_ID[] = "P.ObjCSource";
-const char C_OBJC_SOURCE_CONTENT[] = "";
-//         "#!/usr/bin/env python\n"
-//         "# -*- coding: utf-8 -*-\n"
-//         "\n";
+const char C_OBJC_SOURCE_CONTENT[] = ""; // Boiler Plate code for top of file
 const char EN_OBJC_SOURCE_DISPLAY_NAME[] = QT_TRANSLATE_NOOP("ObjectiveCEditor::FileWizard", "ObjectiveC source file");
 const char EN_OBJC_SOURCE_DESCRIPTION[] =
         QT_TRANSLATE_NOOP("ObjectiveCEditor::FileWizard", "Creates an empty ObjectiveC source file");
@@ -60,8 +57,8 @@ const char OBJCPP_SOURCE_MIMETYPE[] = "text/x-objc++src";
 const char CPP_HEADER_MIMETYPE[] = "text/x-c++hdr";
 const char C_HEADER_MIMETYPE[] = "text/x-chdr";
 const char RC_OBJC_MIME_XML[] = ":/objectiveceditor/ObjectiveCEditor.mimetypes.xml";
-const char C_OBJC_MIME_ICON[] = "text-x-python";
+const char C_OBJC_MIME_ICON[] = "text-x-objcsrc";
 } // namespace Constants
 } // namespace ObjectiveCEditor
 
-#endif // PYTHONEDITOR_CONSTANTS_H
+#endif // OBJECTIVECEDITOR_CONSTANTS_H

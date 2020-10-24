@@ -30,6 +30,16 @@
 #include <qtsupport/qtkitinformation.h>
 #include <qtsupport/baseqtversion.h>
 
+
+#include <coreplugin/icore.h>
+#include <coreplugin/mimedatabase.h>
+#include <cpptools/abstracteditorsupport.h>
+#include <cpptools/cpptoolsconstants.h>
+
+#include <utils/codegeneration.h>
+#include <utils/newclasswidget.h>
+#include <utils/qtcassert.h>
+
 using namespace ProjectExplorer;
 
 namespace ObjectiveCEditor {
@@ -57,6 +67,16 @@ QWizard *ClassWizard::createWizardDialog(
     return wizard;
 }
 
+QString ClassWizard::sourceSuffix() const
+{
+    return preferredSuffix(QLatin1String(Constants::OBJC_SOURCE_MIMETYPE));
+}
+
+QString ClassWizard::headerSuffix() const
+{
+    return preferredSuffix(QLatin1String(Constants::CPP_HEADER_MIMETYPE));
+}
+
 Core::GeneratedFiles ClassWizard::generateFiles(const QWizard *w,
                                                 QString *errorMessage) const
 {
@@ -65,28 +85,193 @@ Core::GeneratedFiles ClassWizard::generateFiles(const QWizard *w,
     const ClassWizardDialog *wizard = qobject_cast<const ClassWizardDialog *>(w);
     const ClassWizardParameters params = wizard->parameters();
 
-    const QString fileName = Core::BaseFileWizard::buildFileName(
-                params.path, params.fileName, QLatin1String(Constants::C_OBJC_EXTENSION));
-    Core::GeneratedFile sourceFile(fileName);
+    const QString sourceFileName = Core::BaseFileWizard::buildFileName(params.path, params.sourceFile, sourceSuffix());
+    const QString headerFileName = Core::BaseFileWizard::buildFileName(params.path, params.headerFile, headerSuffix());
 
-    SourceGenerator generator;
-//    generator.setObjectiveCQtBinding(SourceGenerator::PySide);
-    Kit *kit = kitForWizard(wizard);
-    if (kit) {
-        QtSupport::BaseQtVersion *baseVersion = QtSupport::QtKitInformation::qtVersion(kit);
-        if (baseVersion && baseVersion->qtVersion().majorVersion == 5)
-            generator.setObjectiveCQtVersion(SourceGenerator::Qt5);
-        else
-            generator.setObjectiveCQtVersion(SourceGenerator::Qt4);
+    Core::GeneratedFile sourceFile(sourceFileName);
+    Core::GeneratedFile headerFile(headerFileName);
+
+    QString header, source;
+    if (!generateHeaderAndSource(params, &header, &source)) {
+        *errorMessage = tr("Error while generating file contents.");
+        return Core::GeneratedFiles();
+    }
+    headerFile.setContents(header);
+    headerFile.setAttributes(Core::GeneratedFile::OpenEditorAttribute);
+
+    sourceFile.setContents(source);
+    sourceFile.setAttributes(Core::GeneratedFile::OpenEditorAttribute);
+    return Core::GeneratedFiles() << headerFile << sourceFile;
+}
+
+bool ClassWizard::generateHeaderAndSource(const ClassWizardParameters &params,
+                                             QString *header, QString *source)
+{
+    // TODO:
+    //  Quite a bit of this code has been copied from FormClassWizardParameters::generateCpp
+    //  and is duplicated in the library wizard.
+    //  Maybe more of it could be merged into Utils.
+
+    const QString indent = QString(4, QLatin1Char(' '));
+
+    // Do we have namespaces?
+    QStringList namespaceList = params.className.split(QLatin1String("::"));
+    if (namespaceList.empty()) // Paranoia!
+        return false;
+
+    const QString headerLicense =
+            CppTools::AbstractEditorSupport::licenseTemplate(params.headerFile,
+                                                             params.className);
+    const QString sourceLicense =
+            CppTools::AbstractEditorSupport::licenseTemplate(params.sourceFile,
+                                                             params.className);
+
+    const QString unqualifiedClassName = namespaceList.takeLast();
+    const QString guard = Utils::headerGuard(params.headerFile, namespaceList);
+
+    // == Header file ==
+    QTextStream headerStr(header);
+    headerStr << headerLicense << "#ifndef " << guard
+              << "\n#define " <<  guard << '\n';
+
+    QRegExp qtClassExpr(QLatin1String("^Q[A-Z3].+"));
+    QTC_CHECK(qtClassExpr.isValid());
+    // Determine parent QObject type for Qt types. Provide base
+    // class in case the user did not specify one.
+    QString parentQObjectClass;
+    bool defineQObjectMacro = false;
+    switch (params.classType) {
+    case Utils::NewClassWidget::ClassInheritsQObject:
+        parentQObjectClass = QLatin1String("QObject");
+        defineQObjectMacro = true;
+        break;
+    case Utils::NewClassWidget::ClassInheritsQWidget:
+        parentQObjectClass = QLatin1String("QWidget");
+        defineQObjectMacro = true;
+        break;
+    case Utils::NewClassWidget::ClassInheritsQDeclarativeItem:
+        parentQObjectClass = QLatin1String("QDeclarativeItem");
+        defineQObjectMacro = true;
+        break;
+    case Utils::NewClassWidget::ClassInheritsQQuickItem:
+        parentQObjectClass = QLatin1String("QQuickItem");
+        defineQObjectMacro = true;
+        break;
+    case Utils::NewClassWidget::NoClassType:
+    case Utils::NewClassWidget::SharedDataClass:
+        break;
+    }
+    const QString baseClass = params.baseClass.isEmpty()
+                              && params.classType != Utils::NewClassWidget::NoClassType ?
+                              parentQObjectClass : params.baseClass;
+    const bool superIsQtClass = qtClassExpr.exactMatch(baseClass);
+    if (superIsQtClass) {
+        headerStr << '\n';
+        Utils::writeIncludeFileDirective(baseClass, true, headerStr);
+    }
+    if (params.classType == Utils::NewClassWidget::SharedDataClass) {
+        headerStr << '\n';
+        Utils::writeIncludeFileDirective(QLatin1String("QSharedDataPointer"), true, headerStr);
     }
 
-    QString sourceContent = generator.generateClass(
-                params.className, params.baseClass, params.classType
-                );
+    const QString namespaceIndent = Utils::writeOpeningNameSpaces(namespaceList, QString(), headerStr);
 
-    sourceFile.setContents(sourceContent);
-    sourceFile.setAttributes(Core::GeneratedFile::OpenEditorAttribute);
-    return Core::GeneratedFiles() << sourceFile;
+    const QString sharedDataClass = unqualifiedClassName + QLatin1String("Data");
+
+    if (params.classType == Utils::NewClassWidget::SharedDataClass)
+        headerStr << '\n' << "class " << sharedDataClass << ";\n";
+
+    // Class declaration
+    headerStr << '\n' << namespaceIndent << "class " << unqualifiedClassName;
+    if (!baseClass.isEmpty())
+        headerStr << " : public " << baseClass << "\n";
+    else
+        headerStr << "\n";
+    headerStr << namespaceIndent << "{\n";
+    if (defineQObjectMacro)
+        headerStr << namespaceIndent << indent << "Q_OBJECT\n";
+    headerStr << namespaceIndent << "public:\n"
+              << namespaceIndent << indent;
+    // Constructor
+    if (parentQObjectClass.isEmpty()) {
+        headerStr << unqualifiedClassName << "();\n";
+    } else {
+        headerStr << "explicit " << unqualifiedClassName << '(' << parentQObjectClass
+                << " *parent = 0);\n";
+    }
+    // Copy/Assignment for shared data classes.
+    if (params.classType == Utils::NewClassWidget::SharedDataClass) {
+        headerStr << namespaceIndent << indent
+                  << unqualifiedClassName << "(const " << unqualifiedClassName << " &);\n"
+                  << namespaceIndent << indent
+                  << unqualifiedClassName << " &operator=(const " << unqualifiedClassName << " &);\n"
+                  << namespaceIndent << indent
+                  << '~' << unqualifiedClassName << "();\n";
+    }
+    if (defineQObjectMacro)
+        headerStr << '\n' << namespaceIndent << "signals:\n\n" << namespaceIndent << "public slots:\n\n";
+    if (params.classType == Utils::NewClassWidget::SharedDataClass) {
+        headerStr << '\n' << namespaceIndent << "private:\n"
+                  << namespaceIndent << indent << "QSharedDataPointer<" << sharedDataClass << "> data;\n";
+    }
+    headerStr << namespaceIndent << "};\n";
+
+    Utils::writeClosingNameSpaces(namespaceList, QString(), headerStr);
+
+    headerStr << '\n';
+    headerStr << "#endif // "<<  guard << '\n';
+
+    // == Source file ==
+    QTextStream sourceStr(source);
+    sourceStr << sourceLicense;
+    Utils::writeIncludeFileDirective(params.headerFile, false, sourceStr);
+    if (params.classType == Utils::NewClassWidget::SharedDataClass)
+        Utils::writeIncludeFileDirective(QLatin1String("QSharedData"), true, sourceStr);
+
+    Utils::writeOpeningNameSpaces(namespaceList, QString(), sourceStr);
+    // Private class:
+    if (params.classType == Utils::NewClassWidget::SharedDataClass) {
+        sourceStr << '\n' << namespaceIndent << "class " << sharedDataClass
+                  << " : public QSharedData {\n"
+                  << namespaceIndent << "public:\n"
+                  << namespaceIndent << "};\n";
+    }
+
+    // Constructor
+    sourceStr << '\n' << namespaceIndent;
+    if (parentQObjectClass.isEmpty()) {
+        sourceStr << unqualifiedClassName << "::" << unqualifiedClassName << "()";
+        if (params.classType == Utils::NewClassWidget::SharedDataClass)
+            sourceStr << " : data(new " << sharedDataClass << ')';
+        sourceStr << '\n';
+    } else {
+        sourceStr << unqualifiedClassName << "::" << unqualifiedClassName
+                << '(' << parentQObjectClass << " *parent) :\n"
+                << namespaceIndent << indent << baseClass << "(parent)\n";
+    }
+
+    sourceStr << namespaceIndent << "{\n" << namespaceIndent << "}\n";
+    if (params.classType == Utils::NewClassWidget::SharedDataClass) {
+        // Copy
+        sourceStr << '\n' << namespaceIndent << unqualifiedClassName << "::" << unqualifiedClassName << "(const "
+                << unqualifiedClassName << " &rhs) : data(rhs.data)\n"
+                << namespaceIndent << "{\n" << namespaceIndent << "}\n\n";
+        // Assignment
+        sourceStr << namespaceIndent << unqualifiedClassName << " &"
+                  << unqualifiedClassName << "::operator=(const " << unqualifiedClassName << " &rhs)\n"
+                  << namespaceIndent << "{\n"
+                  << namespaceIndent << indent << "if (this != &rhs)\n"
+                  << namespaceIndent << indent << indent << "data.operator=(rhs.data);\n"
+                  << namespaceIndent << indent << "return *this;\n"
+                  << namespaceIndent << "}\n\n";
+         // Destructor
+        sourceStr << namespaceIndent << unqualifiedClassName << "::~"
+                  << unqualifiedClassName << "()\n"
+                  << namespaceIndent << "{\n"
+                  << namespaceIndent << "}\n";
+    }
+    Utils::writeClosingNameSpaces(namespaceList, QString(), sourceStr);
+    return true;
 }
 
 Kit *ClassWizard::kitForWizard(const ClassWizardDialog *wizard) const

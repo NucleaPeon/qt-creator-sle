@@ -23,8 +23,10 @@
 namespace ObjectiveCEditor {
 namespace Internal {
 
-static const char BASH_RUN_HEADER[] = "#!/usr/bin/env objectivec\n";
-static const char ENCODING_HEADER[] = "# -*- coding: utf-8 -*-\n";
+static const char BASH_RUN_HEADER[] = "#!/usr/bin/env objc-run\n# You must set up objc-run to enable this functionality.";
+static const char ENCODING_HEADER[] = "# See https://github.com/iljaiwas/objc-run\n";
+static const char FOUNDATION_HEADER[] = "#import <Foundation/Foundation.h>";
+static const char MAIN_HEADER[] = "int main(int argc, const char * argv[])";
 
 SourceGenerator::SourceGenerator()
 {
@@ -34,124 +36,65 @@ SourceGenerator::~SourceGenerator()
 {
 }
 
-void SourceGenerator::setObjectiveCQtBinding(QtBinding binding)
-{
-//    m_objectivecQtBinding = binding;
-}
-
-void SourceGenerator::setObjectiveCQtVersion(SourceGenerator::QtVersion version)
-{
-//    m_objectivecQtVersion = version;
-}
-
 QString SourceGenerator::generateClass(const QString &className,
-                                       const QString &baseClass,
                                        Utils::NewClassWidget::ClassType classType) const
 {
-    QSet<QString> modules;
-    bool hasUserBaseClass = !baseClass.isEmpty();
-    // heuristic
-    bool wasInheritedFromQt = hasUserBaseClass && (baseClass.at(0) == QLatin1Char('Q'));
-
-    QString actualBase = baseClass;
-
-    switch (classType) {
-    case Utils::NewClassWidget::NoClassType:
-        break;
-    case Utils::NewClassWidget::SharedDataClass:
-    case Utils::NewClassWidget::ClassInheritsQQuickItem:
-        break;
-    case Utils::NewClassWidget::ClassInheritsQObject:
-        wasInheritedFromQt = true;
-        modules.insert(QLatin1String("QtCore"));
-        if (!hasUserBaseClass)
-            actualBase = QLatin1String("QtCore.QObject");
-        break;
-
-    case Utils::NewClassWidget::ClassInheritsQWidget:
-        wasInheritedFromQt = true;
-        modules.insert(QLatin1String("QtCore"));
-        modules.insert(moduleForQWidget());
-        if (!hasUserBaseClass)
-            actualBase = moduleForQWidget() + QLatin1String(".QWidget");
-        break;
-
-    case Utils::NewClassWidget::ClassInheritsQDeclarativeItem:
-        wasInheritedFromQt = true;
-        modules.insert(QLatin1String("QtCore"));
-        modules.insert(QLatin1String("QtDeclarative"));
-        if (!hasUserBaseClass)
-            actualBase = QLatin1String("QtDeclarative.QDeclarativeItem");
-        break;
-    }
-
-    QString nonQtModule; // empty
-    if (hasUserBaseClass) {
-        int dotIndex = baseClass.lastIndexOf(QLatin1Char('.'));
-        if (dotIndex != -1) {
-            if (wasInheritedFromQt)
-                modules.insert(baseClass.left(dotIndex));
-            else
-                nonQtModule = baseClass.left(dotIndex);
-        }
-    }
-
+    // Objective C itself has no class functionality, only structs.
     QString ret;
     ret.reserve(1024);
-    ret += QLatin1String(ENCODING_HEADER);
+    ret += QLatin1String(FOUNDATION_HEADER); // FIXME: Create a comment or something here
     ret += QLatin1Char('\n');
+    return ret;
+}
 
-    if (!modules.isEmpty()) {
-        ret += qtModulesImport(modules);
-        ret += QLatin1Char('\n');
-    }
-
-    if (!nonQtModule.isEmpty())
-        ret += QString::fromLatin1("import %1\n\n").arg(nonQtModule);
-
-    if (actualBase.isEmpty())
-        ret += QString::fromLatin1("class %1:\n").arg(className);
-    else
-        ret += QString::fromLatin1("class %1(%2):\n").arg(className).arg(actualBase);
-
-    ret += QLatin1String("    def __init__(self):\n");
-    if (wasInheritedFromQt)
-        ret += QString::fromLatin1("        %1.__init__(self)\n").arg(actualBase);
-    ret += QLatin1String("        pass\n");
+/**
+* @brief Generates main file of command line application in Objective C
+*
+* Class MainWindow should be defined in 'mainwindow' module.
+* @param windowTitle Title for created window instance
+*/
+QString SourceGenerator::generateObjectiveCMain(const QString &windowTitle) const
+{
+    QString ret;
+    ret.reserve(1024);
+    ret += QLatin1String(FOUNDATION_HEADER);
+    ret += QLatin1Char('\n');
+    ret += QLatin1Char('\n');
+    ret += QLatin1String(MAIN_HEADER);
+    ret += QLatin1Char('\n');
+    ret += QLatin1Char('{');
+    ret += QLatin1Char('\n');
+    ret += QLatin1Char('\t');
+    ret += QLatin1String("return 0;");
+    ret += QLatin1Char('\n');
+    ret += QLatin1Char('}');
 
     return ret;
 }
 
 /**
-* @brief Generates main file of PyQt/PySide application
+* @brief Generates main file of command line application in Objective CPP
 *
 * Class MainWindow should be defined in 'mainwindow' module.
 * @param windowTitle Title for created window instance
 */
-QString SourceGenerator::generateQtMain(const QString &windowTitle) const
+QString SourceGenerator::generateObjectiveCPPMain(const QString &windowTitle) const
 {
-    QSet<QString> qtModules;
-    qtModules.insert(QLatin1String("QtCore"));
-    qtModules.insert(moduleForQWidget());
-
     QString ret;
     ret.reserve(1024);
-//    ret += QLatin1String(BASH_RUN_HEADER);
-//    ret += QLatin1String(ENCODING_HEADER);
-//    ret += QLatin1Char('\n');
-//    ret += QLatin1String("import sys\n");
-//    ret += qtModulesImport(qtModules);
-//    ret += QLatin1String("from mainwindow import MainWindow\n");
-//    ret += QLatin1Char('\n');
-
-//    ret += QString::fromLatin1(
-//                "if __name__ == \'__main__\':\n"
-//                "    app = %1.QApplication(sys.argv)\n"
-//                "    win = MainWindow()\n"
-//                "    win.setWindowTitle(u\'%2\')\n"
-//                "    win.show()\n"
-//                "    app.exec_()\n"
-//                ).arg(moduleForQWidget()).arg(windowTitle);
+    ret += QLatin1String(FOUNDATION_HEADER);
+    ret += QLatin1Char('\n');
+    ret += QLatin1Char('\n');
+    ret += QLatin1String(MAIN_HEADER);
+    ret += QLatin1Char('\n');
+    ret += QLatin1Char('{');
+    ret += QLatin1Char('\n');
+    ret += QLatin1String("\t@autoreleasepool {\n");
+    ret += QLatin1String("\t\tNSLog(@\"Hello, World!\");\n");
+    ret += QLatin1String("\t}");
+    ret += QLatin1String("\treturn 0;");
+    ret += QLatin1Char('\n');
+    ret += QLatin1Char('}');
 
     return ret;
 }

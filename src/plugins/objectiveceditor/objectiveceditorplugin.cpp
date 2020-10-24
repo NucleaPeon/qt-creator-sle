@@ -40,136 +40,179 @@
 using namespace ObjectiveCEditor::Constants;
 
 /*******************************************************************************
- * List of Python keywords (includes "print" that isn't keyword in python 3
+ * List of Objective C Keywords
  ******************************************************************************/
-static const char *const LIST_OF_PYTHON_KEYWORDS[] = {
-    "and",
-    "as",
-    "assert",
+static const char *const LIST_OF_OBJECTIVE_C_KEYWORDS[] = {
     "break",
-    "class",
+    "case",
     "continue",
-    "def",
-    "del",
-    "elif",
+    "default",
+    "do",
     "else",
-    "except",
-    "exec",
-    "finally",
+    "enum",
+    "extern",
     "for",
-    "from",
-    "global",
+    "goto",
     "if",
-    "import",
-    "in",
-    "is",
-    "lambda",
-    "not",
-    "or",
-    "pass",
-    "print",
-    "raise",
     "return",
-    "try",
+    "sizeof",
+    "struct",
+    "switch",
+    "typedef",
+    "union",
     "while",
-    "with",
-    "yield"
+    "@class",
+    "@defs",
+    "@encode",
+    "@end",
+    "@implementation",
+    "@interface",
+    "@private",
+    "@protected",
+    "@protocol",
+    "@public",
+    "@selector",
+    "self",
+    "super"
 };
 
 /*******************************************************************************
- * List of Python magic methods and attributes
+ * List of Objective C++ Keywords
  ******************************************************************************/
-static const char *const LIST_OF_PYTHON_MAGICS[] = {
-    // ctor & dtor
-    "__init__",
-    "__del__",
-    // string conversion functions
-    "__str__",
-    "__repr__",
-    "__unicode__",
-    // attribute access functions
-    "__setattr__",
-    "__getattr__",
-    "__delattr__",
-    // binary operators
-    "__add__",
-    "__sub__",
-    "__mul__",
-    "__truediv__",
-    "__floordiv__",
-    "__mod__",
-    "__pow__",
-    "__and__",
-    "__or__",
-    "__xor__",
-    "__eq__",
-    "__ne__",
-    "__gt__",
-    "__lt__",
-    "__ge__",
-    "__le__",
-    "__lshift__",
-    "__rshift__",
-    "__contains__",
-    // unary operators
-    "__pos__",
-    "__neg__",
-    "__inv__",
-    "__abs__",
-    "__len__",
-    // item operators like []
-    "__getitem__",
-    "__setitem__",
-    "__delitem__",
-    "__getslice__",
-    "__setslice__",
-    "__delslice__",
-    // other functions
-    "__cmp__",
-    "__hash__",
-    "__nonzero__",
-    "__call__",
-    "__iter__",
-    "__reversed__",
-    "__divmod__",
-    "__int__",
-    "__long__",
-    "__float__",
-    "__complex__",
-    "__hex__",
-    "__oct__",
-    "__index__",
-    "__copy__",
-    "__deepcopy__",
-    "__sizeof__",
-    "__trunc__",
-    "__format__",
-    // magic attributes
-    "__name__",
-    "__module__",
-    "__dict__",
-    "__bases__",
-    "__doc__"
+static const char *const LIST_OF_OBJECTIVE_CPP_KEYWORDS[] = {
+    "asm",
+    "catch",
+    "class",
+    "const_cast",
+    "delete",
+    "dynamic_cast",
+    "explicit",
+    "export",
+    "false",
+    "friend",
+    "inline",
+    "namespace",
+    "new",
+    "operator",
+    "private",
+    "protected",
+    "public",
+    "qobject_cast",
+    "reinterpret_cast",
+    "static_cast",
+    "template",
+    "this",
+    "throw",
+    "true",
+    "try",
+    "typeid",
+    "type_info",
+    "typename",
+    "using",
+    "virtual",
+    "and",
+    "and_eq",
+    "bad_cast",
+    "bad_typeid",
+    "bitand",
+    "bitor",
+    "compl",
+    "not",
+    "not_eq",
+    "or",
+    "or_eq",
+    "xor",
+    "xor_eq"
 };
 
 /*******************************************************************************
- * List of python built-in functions and objects
+ * List of QT Extensions that can show up in objective c++ code
  ******************************************************************************/
-static const char *const LIST_OF_PYTHON_BUILTINS[] = {
-    "range",
-    "xrange",
-    "int",
+static const char *const LIST_OF_QT_OBJCPP_EXTENSIONS[] = {
+    "K_DCOP",
+    "SLOT",
+    "SIGNAL",
+    "Q_CLASSINFO",
+    "Q_ENUMS",
+    "Q_EXPORT",
+    "Q_OBJECT",
+    "Q_OVERRIDE",
+    "Q_PROPERTY",
+    "Q_SETS",
+    "Q_SIGNALS",
+    "Q_SLOTS",
+    "Q_FOREACH",
+    "Q_DECLARE_FLAGS",
+    "Q_INIT_RESOURCE",
+    "Q_CLEANUP_RESOURCE",
+    "Q_GLOBAL_STATIC",
+    "Q_GLOBAL_STATIC_WITH_ARGS",
+    "Q_DECLARE_INTERFACE",
+    "Q_DECLARE_TYPEINFO",
+    "Q_DECLARE_SHARED",
+    "Q_DECLARE_FLAGS",
+    "Q_DECLARE_OPERATORS_FOR_FLAGS",
+    "Q_FOREVER",
+    "Q_DECLARE_PRIVATE",
+    "Q_DECLARE_PUBLIC",
+    "Q_D",
+    "Q_Q",
+    "Q_DISABLE_COPY",
+    "Q_INTERFACES",
+    "Q_FLAGS",
+    "Q_SCRIPTABLE",
+    "Q_INVOKABLE",
+    "Q_GADGET",
+    "Q_ARG",
+    "Q_RETURN_ARG",
+    "Q_ASSERT",
+    "Q_ASSERT_X",
+    "TRUE",
+    "FALSE",
+    "connect",
+    "disconnect",
+    "emit",
+    "signals",
+    "slots",
+    "foreach",
+    "forever"
+};
+
+/*******************************************************************************
+ * List of objective c/c++ built-in data types
+ ******************************************************************************/
+static const char *const LIST_OF_OBJECTIVE_C_TYPES[] = {
+    "auto",
+    "char",
+    "const",
+    "double",
     "float",
+    "int",
     "long",
-    "hex",
-    "oct"
-    "chr",
-    "ord",
-    "len",
-    "abs",
-    "None",
-    "True",
-    "False"
+    "register",
+    "short",
+    "signed",
+    "static",
+    "unsigned",
+    "void",
+    "volatile"
+};
+
+// This (objcpp) implies the inclusion of LIST_OF_OBJECTIVE_C_TYPES as well
+static const char *const LIST_OF_OBJECTIVE_CPP_TYPES[] = {
+    "bool",
+    "mutable",
+    "uchar",
+    "uint",
+    "int8_t",
+    "int16_t",
+    "int32_t",
+    "int64_t",
+    "uint8_t",
+    "uint16_t",
+    "uint32_t",
+    "uint64_t",
+    "wchar_t",
 };
 
 namespace ObjectiveCEditor {
@@ -189,8 +232,9 @@ ObjectiveCEditorPlugin::ObjectiveCEditorPlugin()
     : m_factory(0)
 {
     m_instance = this;
-//     copyIdentifiers(LIST_OF_PYTHON_KEYWORDS, sizeof(LIST_OF_PYTHON_KEYWORDS), m_keywords);
-//     copyIdentifiers(LIST_OF_PYTHON_MAGICS, sizeof(LIST_OF_PYTHON_MAGICS), m_magics);
+     copyIdentifiers(LIST_OF_OBJECTIVE_C_KEYWORDS, sizeof(LIST_OF_OBJECTIVE_C_KEYWORDS), m_keywords);
+//     copyIdentifiers(LIST_OF_OBJECTIVE_CPP_KEYWORDS, sizeof(LIST_OF_OBJECTIVE_CPP_KEYWORDS), m_keywords);
+     copyIdentifiers(LIST_OF_OBJECTIVE_C_TYPES, sizeof(LIST_OF_OBJECTIVE_C_TYPES), m_magics);
 //     copyIdentifiers(LIST_OF_PYTHON_BUILTINS, sizeof(LIST_OF_PYTHON_BUILTINS), m_builtins);
 }
 

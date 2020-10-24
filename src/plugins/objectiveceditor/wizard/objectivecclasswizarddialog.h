@@ -25,20 +25,13 @@
 #include <QScopedPointer>
 #include <QVariantMap>
 
+#include "objectivecclasswizard.h"
+
 namespace ObjectiveCEditor {
 namespace Internal {
 
 class ClassNamePage;
 
-class ClassWizardParameters
-{
-public:
-    QString className;
-    QString fileName;
-    QString path;
-    QString baseClass;
-    Utils::NewClassWidget::ClassType classType;
-};
 
 class ClassWizardDialog : public Utils::Wizard
 {

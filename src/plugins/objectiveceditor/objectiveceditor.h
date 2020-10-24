@@ -47,6 +47,6 @@ public:
 };
 
 } // namespace Internal
-} // namespace PythonEditor
+} // namespace ObjectiveCEditor
 
 #endif // OBJECTIVECEDITOR_EDITOR_H

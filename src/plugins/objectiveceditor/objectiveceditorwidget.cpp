@@ -53,7 +53,7 @@ void EditorWidget::ctor()
 {
     m_commentDefinition.multiLineStart.clear();
     m_commentDefinition.multiLineEnd.clear();
-    m_commentDefinition.singleLine = QLatin1Char('#');
+    m_commentDefinition.singleLine = QLatin1Char('//');
 
     setParenthesesMatchingEnabled(true);
     setMarksVisible(true);
@@ -80,4 +80,4 @@ TextEditor::BaseTextEditor *EditorWidget::createEditor()
 }
 
 } // namespace Internal
-} // namespace PythonEditor
+} // namespace ObjectiveCEditor

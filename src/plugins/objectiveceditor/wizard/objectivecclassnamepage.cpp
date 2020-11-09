@@ -38,15 +38,7 @@ ClassNamePage::ClassNamePage(QWidget *parent)
 
     m_newClassWidget.reset(new Utils::NewClassWidget);
     // Order, set extensions first before suggested name is derived
-    m_newClassWidget->setClassTypeComboVisible(true);
-    m_newClassWidget->setBaseClassChoices(QStringList()
-            << QString()
-            << QLatin1String("QObject")
-            << QLatin1String("QWidget")
-            << QLatin1String("QMainWindow")
-            << QLatin1String("QDeclarativeItem"));
-
-    m_newClassWidget->setBaseClassEditable(true);
+    m_newClassWidget->setBaseClassEditable(false);
     m_newClassWidget->setFormInputVisible(false);
     m_newClassWidget->setHeaderInputVisible(false);
     m_newClassWidget->setNamespacesEnabled(true);

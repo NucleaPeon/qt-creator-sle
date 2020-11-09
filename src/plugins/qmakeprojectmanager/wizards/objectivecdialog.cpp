@@ -33,10 +33,10 @@ ObjectiveCWizardDialog::ObjectiveCWizardDialog(const QString &templateName,
 {
     setWindowIcon(icon);
     setWindowTitle(templateName);
-    setSelectedModules(QLatin1String("core"));
+    setDeselectedModules(QLatin1String("core"));
     setDeselectedModules(QLatin1String("gui"));
 
-    setIntroDescription(tr("This wizard generates an Objective C/C++ Console Application "
+    setIntroDescription(tr("This wizard generates an Objective C++ Console Application "
                           "project. The application derives from the Foundation Framework "
                           "and does not provide a GUI."));
 

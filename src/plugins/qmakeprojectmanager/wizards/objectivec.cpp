@@ -28,7 +28,7 @@
 #include <QFileInfo>
 #include <QTextStream>
 
-static const char mainCppC[] =
+static const char mainObjCppC[] =
 "#import <Foundation/Foundation.h>\n\n"
 "int main(int argc, const char * argv[])\n"
 "{\n"
@@ -49,7 +49,7 @@ ObjectiveCWizard::ObjectiveCWizard()
     setCategory(QLatin1String(ProjectExplorer::Constants::QT_APPLICATION_WIZARD_CATEGORY));
     setDisplayCategory(QCoreApplication::translate("ProjectExplorer",
              ProjectExplorer::Constants::QT_APPLICATION_WIZARD_CATEGORY_DISPLAY));
-    setDisplayName(tr("Objective C/C++ Application"));
+    setDisplayName(tr("Objective C++ Application"));
     setDescription(tr("Creates a project containing a single main.mm file with a stub implementation.\n\n"
                 "Preselects a desktop Qt for building the application if available."));
     setIcon(QIcon(QLatin1String(":/wizards/images/console.png")));
@@ -77,7 +77,7 @@ Core::GeneratedFiles
 
     const QString sourceFileName = Core::BaseFileWizard::buildFileName(projectPath, QLatin1String(mainSourceFileC), objcppSuffix());
     Core::GeneratedFile source(sourceFileName);
-    source.setContents(CppTools::AbstractEditorSupport::licenseTemplate(sourceFileName) + QLatin1String(mainCppC));
+    source.setContents(CppTools::AbstractEditorSupport::licenseTemplate(sourceFileName) + QLatin1String(mainObjCppC));
     source.setAttributes(Core::GeneratedFile::OpenEditorAttribute);
     // Create files: Profile
     const QString profileName = Core::BaseFileWizard::buildFileName(projectPath, params.fileName, profileSuffix());

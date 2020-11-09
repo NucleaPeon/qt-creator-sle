@@ -59,7 +59,7 @@
         <match value="-*- C++ -*-" type="string" offset="0:30"/>
         </magic>
     </mime-type>
-
+    <!--
     <mime-type type="text/x-objcsrc">
          <comment>Objective-C source code</comment>
          <sub-class-of type="text/x-csrc"/>
@@ -72,5 +72,5 @@
          <sub-class-of type="text/x-objcsrc"/>
          <glob pattern="*.mm"/>
     </mime-type>
-
+    -->
 </mime-info>

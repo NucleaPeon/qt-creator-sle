@@ -5,19 +5,9 @@
         <comment>Objective C Source File</comment>
         <glob pattern="*.m"/>
     </mime-type>
-    <mime-type type="text/x-chdr">
-        <sub-class-of type="text/plain"/>
-        <comment>Objective C Header File</comment>
-        <glob pattern="*.h"/>
-    </mime-type>
     <mime-type type="text/x-objc++src">
         <sub-class-of type="text/plain"/>
         <comment>Objective C++ Source File</comment>
         <glob pattern="*.mm"/>
-    </mime-type>
-    <mime-type type="text/x-c++hdr">
-        <sub-class-of type="text/plain"/>
-        <comment>Objective C++ Header File</comment>
-        <glob pattern="*.m"/>
     </mime-type>
 </mime-info>

@@ -97,6 +97,8 @@ const char C_COMPILE_OUTPUT[]     = "ProjectExplorer.CompileOutput";
 
 // Languages
 const char LANG_CXX[]             = "CXX";
+const char LANG_OBJC[]            = "OBJC";
+const char LANG_OBJCPP[]          = "OBJCPP";
 const char LANG_QMLJS[]           = "QMLJS";
 
 // Menus
@@ -257,7 +259,7 @@ const char HIDE_FILE_FILTER_SETTING[] = "GenericProject/FileFilter";
 const char HIDE_FILE_FILTER_DEFAULT[] = "Makefile*; *.o; *.obj; *~; *.files; *.config; *.creator; *.user; *.includes; *.autosave";
 
 const char SHOW_FILE_FILTER_SETTING[] = "GenericProject/ShowFileFilter";
-const char SHOW_FILE_FILTER_DEFAULT[] = "*.c; *.cc; *.cpp; *.cp; *.cxx; *.c++; *.h; *.hh; *.hpp; *.hxx;";
+const char SHOW_FILE_FILTER_DEFAULT[] = "*.c; *.cc; *.cpp; *.cp; *.cxx; *.c++; *.h; *.hh; *.hpp; *.hxx; *.m; *.mm;";
 
 // Unconfigured Panel
 const char UNCONFIGURED_PANEL_PAGE_ID[] = "UnconfiguredPanel";

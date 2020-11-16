@@ -170,12 +170,15 @@ const char C_SOURCE_MIMETYPE[]    = "text/x-csrc";
 const char C_HEADER_MIMETYPE[]    = "text/x-chdr";
 const char CPP_SOURCE_MIMETYPE[]  = "text/x-c++src";
 const char CPP_HEADER_MIMETYPE[]  = "text/x-c++hdr";
-const char OBJC_SOURCE_MIMETYPE[] = "text/x-objcsrc";
-const char OBJCPP_SOURCE_MIMETYPE[] = "text/x-objc++src";
 const char LINGUIST_MIMETYPE[]    = "application/x-linguist";
 const char FORM_MIMETYPE[]        = "application/x-designer";
 const char QML_MIMETYPE[]         = "application/x-qml"; // separate def also in qmljstoolsconstants.h
 const char RESOURCE_MIMETYPE[]    = "application/vnd.qt.xml.resource";
+const char OBJECTIVE_C_SOURCE_MIMETYPE[] = "text/x-objcsrc";
+const char OBJECTIVE_CPP_SOURCE_MIMETYPE[] = "text/x-objc++src";
+const char OBJECTIVE_C_HEADER_MIMETYPE[] = "text/x-objchdr";
+const char OBJECTIVE_CPP_HEADER_MIMETYPE[] = "text/x-objc++hdr";
+const char PLAIN_TEXT_MIMETYPE[] = "text/plain";
 
 // Settings page
 const char PROJECTEXPLORER_SETTINGS_CATEGORY[]  = "K.ProjectExplorer";

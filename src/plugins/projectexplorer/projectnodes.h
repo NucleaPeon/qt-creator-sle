@@ -64,7 +64,10 @@ enum FileType {
     ResourceType,
     QMLType,
     ProjectFileType,
-    FileTypeSize
+    FileTypeSize,
+    ObjectiveHeaderType,
+    ObjectiveSourceType,
+    TextType
 };
 
 enum ProjectAction {

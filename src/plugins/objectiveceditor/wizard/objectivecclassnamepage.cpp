@@ -34,14 +34,14 @@ ClassNamePage::ClassNamePage(QWidget *parent)
     , m_isValid(false)
 {
     setTitle(tr("Enter Class Name"));
-    setSubTitle(tr("The source file name will be derived from the class name"));
+    setSubTitle(tr("The source and header filename will be derived from the class name"));
 
     m_newClassWidget.reset(new Utils::NewClassWidget);
     // Order, set extensions first before suggested name is derived
     m_newClassWidget->setBaseClassEditable(false);
     m_newClassWidget->setFormInputVisible(false);
-    m_newClassWidget->setHeaderInputVisible(false);
-    m_newClassWidget->setNamespacesEnabled(true);
+    m_newClassWidget->setHeaderInputVisible(true);
+    m_newClassWidget->setNamespacesEnabled(false);
     m_newClassWidget->setBaseClassInputVisible(true);
     m_newClassWidget->setNamesDelimiter(QLatin1String("."));
     m_newClassWidget->setAllowDirectories(true);
@@ -52,7 +52,6 @@ ClassNamePage::ClassNamePage(QWidget *parent)
     pageLayout->addWidget(m_newClassWidget.data());
     QSpacerItem *vSpacer = new QSpacerItem(0, 0, QSizePolicy::Ignored, QSizePolicy::Expanding);
     pageLayout->addItem(vSpacer);
-
     initParameters();
 }
 

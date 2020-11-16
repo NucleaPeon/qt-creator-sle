@@ -72,12 +72,22 @@ QString QtWizard::headerSuffix()
 
 QString QtWizard::objcSuffix()
 {
-    return preferredSuffix(QLatin1String(ProjectExplorer::Constants::OBJC_SOURCE_MIMETYPE));
+    return preferredSuffix(QLatin1String(ProjectExplorer::Constants::OBJECTIVE_C_SOURCE_MIMETYPE));
 }
 
 QString QtWizard::objcppSuffix()
 {
-    return preferredSuffix(QLatin1String(ProjectExplorer::Constants::OBJCPP_SOURCE_MIMETYPE));
+    return preferredSuffix(QLatin1String(ProjectExplorer::Constants::OBJECTIVE_CPP_SOURCE_MIMETYPE));
+}
+
+QString QtWizard::objchSuffix()
+{
+    return preferredSuffix(QLatin1String(ProjectExplorer::Constants::OBJECTIVE_C_HEADER_MIMETYPE));
+}
+
+QString QtWizard::objcpphSuffix()
+{
+    return preferredSuffix(QLatin1String(ProjectExplorer::Constants::OBJECTIVE_CPP_HEADER_MIMETYPE));
 }
 
 QString QtWizard::formSuffix()

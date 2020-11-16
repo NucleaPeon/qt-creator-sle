@@ -45,6 +45,8 @@ const char C_HEADER_MIMETYPE[] = "text/x-chdr";
 const char CPP_SOURCE_MIMETYPE[] = "text/x-c++src";
 const char OBJECTIVE_C_SOURCE_MIMETYPE[] = "text/x-objcsrc";
 const char OBJECTIVE_CPP_SOURCE_MIMETYPE[] = "text/x-objc++src";
+const char OBJECTIVE_C_HEADER_MIMETYPE[] = "text/x-objchdr";
+const char OBJECTIVE_CPP_HEADER_MIMETYPE[] = "text/x-objc++hdr";
 const char CPP_HEADER_MIMETYPE[] = "text/x-c++hdr";
 
 // QSettings keys for use by the "New Class" wizards.

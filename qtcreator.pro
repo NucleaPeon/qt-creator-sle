@@ -24,6 +24,7 @@ OTHER_FILES += dist/copyright_template.txt \
     dist/installer/ifw/packages/org.qtproject.qtcreator.application/meta/installscript.qs \
     dist/installer/ifw/packages/org.qtproject.qtcreator.application/meta/package.xml.in \
     dist/installer/ifw/packages/org.qtproject.qtcreator.application/meta/license.txt \
+    LEFT_OFF \
     $$files(scripts/*.py) \
     $$files(scripts/*.sh) \
     $$files(scripts/*.pl)

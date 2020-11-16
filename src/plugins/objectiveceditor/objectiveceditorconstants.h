@@ -39,21 +39,30 @@ const char C_OBJC_DISPLAY_CATEGORY[] = "ObjectiveC";
     // source
 const char C_OBJC_SOURCE_WIZARD_ID[] = "P.ObjCSource";
 const char C_OBJC_SOURCE_CONTENT[] = ""; // Boiler Plate code for top of file
-const char EN_OBJC_SOURCE_DISPLAY_NAME[] = QT_TRANSLATE_NOOP("ObjectiveCEditor::FileWizard", "ObjectiveC source file");
+const char EN_OBJC_SOURCE_DISPLAY_NAME[] = QT_TRANSLATE_NOOP("ObjectiveCEditor::FileWizard", "ObjectiveC Source file");
 const char EN_OBJC_SOURCE_DESCRIPTION[] =
         QT_TRANSLATE_NOOP("ObjectiveCEditor::FileWizard", "Creates an empty ObjectiveC source file");
 
     // class
 const char C_OBJC_CLASS_WIZARD_ID[] = "P.ObjCClass";
-const char EN_OBJC_CLASS_DISPLAY_NAME[] = QT_TRANSLATE_NOOP("ObjectiveCEditor::ClassWizard", "ObjectiveC class");
+const char EN_OBJC_CLASS_DISPLAY_NAME[] = QT_TRANSLATE_NOOP("ObjectiveCEditor::ClassWizard", "ObjectiveC Class");
 const char EN_OBJC_CLASS_DESCRIPTION[] =
         QT_TRANSLATE_NOOP("ObjectiveCEditor::ClassWizard", "Creates new ObjectiveC class");
 
+    // header
+const char C_OBJC_HEADER_WIZARD_ID[] = "P.ObjCHeader";
+const char C_OBJC_HEADER_EXTENSION[] = ".h";
+const char C_OBJC_HEADER_CONTENT[] = ""; // Boiler Plate code for top of file
+const char EN_OBJC_HEADER_DISPLAY_NAME[] = QT_TRANSLATE_NOOP("ObjectiveCEditor::FileWizard", "ObjectiveC Header file");
+const char EN_OBJC_HEADER_DESCRIPTION[] =
+        QT_TRANSLATE_NOOP("ObjectiveCEditor::FileWizard", "Creates an empty ObjectiveC header file");
 /*******************************************************************************
  * MIME type
  ******************************************************************************/
 const char OBJC_SOURCE_MIMETYPE[] = "text/x-objcsrc";
 const char OBJCPP_SOURCE_MIMETYPE[] = "text/x-objc++src";
+const char OBJC_HEADER_MIMETYPE[] = "text/x-objchdr";
+const char OBJCPP_HEADER_MIMETYPE[] = "text/x-objc++hdr";
 const char CPP_HEADER_MIMETYPE[] = "text/x-c++hdr";
 const char C_HEADER_MIMETYPE[] = "text/x-chdr";
 const char RC_OBJC_MIME_XML[] = ":/objectiveceditor/ObjectiveCEditor.mimetypes.xml";

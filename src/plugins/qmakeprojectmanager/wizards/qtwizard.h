@@ -72,6 +72,8 @@ public:
     static QString formSuffix();
     static QString objcSuffix();
     static QString objcppSuffix();
+    static QString objchSuffix();
+    static QString objcpphSuffix();
     static QString profileSuffix();
 
     // Query CppTools settings for the class wizard settings

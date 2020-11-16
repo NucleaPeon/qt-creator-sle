@@ -19,7 +19,8 @@
 
 #include "objectiveceditorplugin.h"
 #include "objectiveceditorconstants.h"
-#include "wizard/objectivecfilewizard.h"
+#include "wizard/objectivecsourcewizard.h"
+#include "wizard/objectivecheaderwizard.h"
 #include "wizard/objectivecclasswizard.h"
 #include "objectiveceditorwidget.h"
 #include "objectiveceditorfactory.h"
@@ -232,9 +233,8 @@ ObjectiveCEditorPlugin::ObjectiveCEditorPlugin()
     : m_factory(0)
 {
     m_instance = this;
-     copyIdentifiers(LIST_OF_OBJECTIVE_C_KEYWORDS, sizeof(LIST_OF_OBJECTIVE_C_KEYWORDS), m_keywords);
-//     copyIdentifiers(LIST_OF_OBJECTIVE_CPP_KEYWORDS, sizeof(LIST_OF_OBJECTIVE_CPP_KEYWORDS), m_keywords);
-     copyIdentifiers(LIST_OF_OBJECTIVE_C_TYPES, sizeof(LIST_OF_OBJECTIVE_C_TYPES), m_magics);
+    copyIdentifiers(LIST_OF_OBJECTIVE_C_KEYWORDS, sizeof(LIST_OF_OBJECTIVE_C_KEYWORDS), m_keywords);
+    copyIdentifiers(LIST_OF_OBJECTIVE_C_TYPES, sizeof(LIST_OF_OBJECTIVE_C_TYPES), m_magics);
 //     copyIdentifiers(LIST_OF_PYTHON_BUILTINS, sizeof(LIST_OF_PYTHON_BUILTINS), m_builtins);
 }
 
@@ -260,8 +260,9 @@ bool ObjectiveCEditorPlugin::initialize(const QStringList &arguments, QString *e
     if (!icon.isNull())
         Core::FileIconProvider::registerIconOverlayForMimeType(icon, OBJC_SOURCE_MIMETYPE);
 
-    // Add Python files and classes creation dialogs
-    addAutoReleasedObject(new FileWizard);
+    // Add Objective C files and classes creation dialogs
+    addAutoReleasedObject(new ObjectiveCSourceWizard);
+    addAutoReleasedObject(new ObjectiveCHeaderWizard);
     addAutoReleasedObject(new ClassWizard);
     addAutoReleasedObject(new Internal::ObjectiveCHighlighterFactory);
 

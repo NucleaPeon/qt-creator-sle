@@ -569,6 +569,7 @@ void QmakeProject::updateCppCodeModel()
 
         part->files.prepend(ProjectFile(CppTools::CppModelManagerInterface::configurationFileName(),
                                         ProjectFile::CXXSource));
+        // FIXME: Put ObjC and ObjC++ into their own cpptools/ plugin
         foreach (const QString &file, pro->variableValue(ObjCSourceVar)) {
             allFiles << file;
             // Although the enum constant is called ObjCSourceVar, it actually is ObjC++ source

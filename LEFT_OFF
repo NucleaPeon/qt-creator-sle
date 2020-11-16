@@ -1,0 +1,4 @@
+- First off, auto-add all .m and .mm files into the .pro file OBJECTIVE_{HEADERS/SOURCES}
+- Objective C Classes? (struct?) maybe just add in a comment
+- Might have to add headers into the wizard to put them in the proper pro file
+- If a file has no extension when added, put it in other files

@@ -12,7 +12,6 @@ HEADERS += \
     objectiveceditor.h \
     objectiveceditorwidget.h \
     objectiveceditorconstants.h \
-    wizard/objectivecfilewizard.h \
     wizard/objectivecclasswizard.h \
     wizard/objectivecclassnamepage.h \
     wizard/objectivecclasswizarddialog.h \
@@ -22,14 +21,15 @@ HEADERS += \
     tools/objectivecindenter.h \
     tools/lexical/objectivecformattoken.h \
     tools/lexical/objectivecscanner.h \
-    tools/lexical/sourcecodestream.h
+    tools/lexical/sourcecodestream.h \
+    wizard/objectivecsourcewizard.h \
+    wizard/objectivecheaderwizard.h
 
 SOURCES += \
     objectiveceditorplugin.cpp \
     objectiveceditorfactory.cpp \
     objectiveceditor.cpp \
     objectiveceditorwidget.cpp \
-    wizard/objectivecfilewizard.cpp \
     wizard/objectivecclasswizarddialog.cpp \
     wizard/objectivecclasswizard.cpp \
     wizard/objectivecclassnamepage.cpp \
@@ -37,4 +37,6 @@ SOURCES += \
     tools/objectivechighlighter.cpp \
     tools/objectivechighlighterfactory.cpp \
     tools/objectivecindenter.cpp \
-    tools/lexical/objectivecscanner.cpp
+    tools/lexical/objectivecscanner.cpp \
+    wizard/objectivecheaderwizard.cpp \
+    wizard/objectivecsourcewizard.cpp

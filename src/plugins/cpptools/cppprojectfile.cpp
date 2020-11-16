@@ -67,6 +67,9 @@ ProjectFile::Kind ProjectFile::classify(const QString &file)
         return ObjCSource;
     if (mt == QLatin1String(CppTools::Constants::OBJECTIVE_CPP_SOURCE_MIMETYPE))
         return ObjCXXSource;
+    if (mt == QLatin1String(CppTools::Constants::OBJECTIVE_C_HEADER_MIMETYPE))
+        return CXXHeader;
+    if (mt == QLatin1String(CppTools::Constants::OBJECTIVE_CPP_HEADER_MIMETYPE))
     return Unclassified;
 }
 
@@ -110,6 +113,8 @@ ProjectFileAdder::ProjectFileAdder(QList<ProjectFile> &files)
     addMapping(CppTools::Constants::CPP_HEADER_MIMETYPE, ProjectFile::CXXHeader);
     addMapping(CppTools::Constants::OBJECTIVE_C_SOURCE_MIMETYPE, ProjectFile::ObjCSource);
     addMapping(CppTools::Constants::OBJECTIVE_CPP_SOURCE_MIMETYPE, ProjectFile::ObjCXXSource);
+    addMapping(CppTools::Constants::OBJECTIVE_C_HEADER_MIMETYPE, ProjectFile::CXXHeader);
+    addMapping(CppTools::Constants::OBJECTIVE_CPP_HEADER_MIMETYPE, ProjectFile::CXXHeader);
 }
 
 ProjectFileAdder::~ProjectFileAdder()

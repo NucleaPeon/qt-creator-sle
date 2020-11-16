@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2020 PeonDevelopments 
+** Copyright (C) 2020 PeonDevelopments
 ** Contact: Daniel Kettle <initial.dann@gmail.com>
 **
 ** GNU Lesser General Public License Usage
@@ -17,19 +17,19 @@
 **
 ****************************************************************************/
 
-#ifndef OBJECTIVECFILEWIZARD_H
-#define OBJECTIVECFILEWIZARD_H
+#ifndef OBJECTIVECHEADERWIZARD_H
+#define OBJECTIVECHEADERWIZARD_H
 
 #include <coreplugin/basefilewizard.h>
 
 namespace ObjectiveCEditor {
 
-class FileWizard : public Core::BaseFileWizard
+class ObjectiveCHeaderWizard : public Core::BaseFileWizard
 {
     Q_OBJECT
 
 public:
-    FileWizard();
+    ObjectiveCHeaderWizard();
 
 protected:
     QWizard *createWizardDialog(QWidget *parent,
@@ -38,6 +38,5 @@ protected:
     Core::GeneratedFiles generateFiles(const QWizard *dialog, QString *errorMessage) const;
 };
 
-} // namespace PythonEditor
-
-#endif // OBJECTIVECFILEWIZARD_H
+}
+#endif // OBJECTIVECHEADERWIZARD_H

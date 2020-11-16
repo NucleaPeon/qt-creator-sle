@@ -1282,6 +1282,12 @@ QStringList QmakePriFileNode::varNames(ProjectExplorer::FileType type, QtSupport
         }
         break;
     }
+    case ProjectExplorer::ObjectiveHeaderType:
+        vars << QLatin1String("HEADERS");
+        break;
+    case ProjectExplorer::ObjectiveSourceType:
+        vars << QLatin1String("SOURCES");
+        break;
     case ProjectExplorer::ResourceType:
         vars << QLatin1String("RESOURCES");
         break;
@@ -1292,6 +1298,9 @@ QStringList QmakePriFileNode::varNames(ProjectExplorer::FileType type, QtSupport
         vars << QLatin1String("SUBDIRS");
         break;
     case ProjectExplorer::QMLType:
+        vars << QLatin1String("OTHER_FILES");
+        break;
+    case ProjectExplorer::TextType:
         vars << QLatin1String("OTHER_FILES");
         break;
     default:
@@ -1320,8 +1329,16 @@ QString QmakePriFileNode::varNameForAdding(const QString &mimeType)
         return QLatin1String("SOURCES");
     }
 
-    if (mimeType == QLatin1String(CppTools::Constants::OBJECTIVE_CPP_SOURCE_MIMETYPE))
+    if (mimeType == QLatin1String(ProjectExplorer::Constants::OBJECTIVE_CPP_SOURCE_MIMETYPE) ||
+        mimeType == QLatin1String(ProjectExplorer::Constants::OBJECTIVE_C_SOURCE_MIMETYPE))
         return QLatin1String("OBJECTIVE_SOURCES");
+
+    if (mimeType == QLatin1String(ProjectExplorer::Constants::OBJECTIVE_C_HEADER_MIMETYPE) ||
+        mimeType == QLatin1String(ProjectExplorer::Constants::OBJECTIVE_CPP_HEADER_MIMETYPE))
+        return QLatin1String("OBJECTIVE_HEADERS");
+
+    if (mimeType == QLatin1String(CppTools::Constants::OBJECTIVE_C_SOURCE_MIMETYPE))
+        return QLatin1String("SOURCES");
 
     if (mimeType == QLatin1String(ProjectExplorer::Constants::RESOURCE_MIMETYPE))
         return QLatin1String("RESOURCES");
@@ -1330,6 +1347,9 @@ QString QmakePriFileNode::varNameForAdding(const QString &mimeType)
         return QLatin1String("FORMS");
 
     if (mimeType == QLatin1String(ProjectExplorer::Constants::QML_MIMETYPE))
+        return QLatin1String("OTHER_FILES");
+
+    if (mimeType == QLatin1String(ProjectExplorer::Constants::PLAIN_TEXT_MIMETYPE))
         return QLatin1String("OTHER_FILES");
 
     if (mimeType == QLatin1String(Constants::PROFILE_MIMETYPE))

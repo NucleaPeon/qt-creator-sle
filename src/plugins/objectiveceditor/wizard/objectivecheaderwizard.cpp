@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2020 PeonDevelopments 
+** Copyright (C) 2020 PeonDevelopments
 ** Contact: Daniel Kettle <initial.dann@gmail.com>
 **
 ** GNU Lesser General Public License Usage
@@ -21,7 +21,7 @@
  * @brief The FileWizard class - adds wizard for creating new ObjectiveC source file
  */
 
-#include "objectivecfilewizard.h"
+#include "objectivecheaderwizard.h"
 #include "../objectiveceditorconstants.h"
 
 #include <utils/filewizarddialog.h>
@@ -35,23 +35,23 @@ namespace ObjectiveCEditor {
  * @brief Initialize wizard and add new option to "New..." dialog.
  * @param parent
  */
-FileWizard::FileWizard()
+ObjectiveCHeaderWizard::ObjectiveCHeaderWizard()
 {
     setWizardKind(Core::IWizard::FileWizard);
-    setId(QLatin1String(Constants::C_OBJC_SOURCE_WIZARD_ID));
+    setId(QLatin1String(Constants::C_OBJC_HEADER_WIZARD_ID));
     setCategory(QLatin1String(Constants::C_OBJC_WIZARD_CATEGORY));
     setDisplayCategory(QLatin1String(Constants::C_OBJC_DISPLAY_CATEGORY));
-    setDisplayName(FileWizard::tr(Constants::EN_OBJC_SOURCE_DISPLAY_NAME));
-    setDescription(FileWizard::tr(Constants::EN_OBJC_SOURCE_DESCRIPTION));
+    setDisplayName(ObjectiveCHeaderWizard::tr(Constants::EN_OBJC_HEADER_DISPLAY_NAME));
+    setDescription(ObjectiveCHeaderWizard::tr(Constants::EN_OBJC_HEADER_DESCRIPTION));
 }
 
 /**
- * @brief FileWizard::createWizardDialog
+ * @brief ObjectiveCHeaderWizard::createWizardDialog
  * @param parent
  * @param params
  * @return
  */
-QWizard *FileWizard::createWizardDialog(QWidget *parent,
+QWizard *ObjectiveCHeaderWizard::createWizardDialog(QWidget *parent,
                                         const Core::WizardDialogParameters &params) const
 {
     Utils::FileWizardDialog *pDialog = new Utils::FileWizardDialog(parent);
@@ -63,7 +63,8 @@ QWizard *FileWizard::createWizardDialog(QWidget *parent,
     return pDialog;
 }
 
-Core::GeneratedFiles FileWizard::generateFiles(const QWizard *dialog,
+
+Core::GeneratedFiles ObjectiveCHeaderWizard::generateFiles(const QWizard *dialog,
                                                 QString *errorMessage) const
 {
     Q_UNUSED(errorMessage)
@@ -75,12 +76,13 @@ Core::GeneratedFiles FileWizard::generateFiles(const QWizard *dialog,
     QString name = pWizard->fileName();
 
     name = Core::BaseFileWizard::buildFileName(
-                folder, name, QLatin1String(Constants::C_OBJC_EXTENSION));
+                folder, name, QLatin1String(Constants::C_OBJC_HEADER_EXTENSION));
     Core::GeneratedFile file(name);
-    file.setContents(QLatin1String(Constants::C_OBJC_SOURCE_CONTENT));
+    file.setContents(QLatin1String(Constants::C_OBJC_HEADER_CONTENT));
     file.setAttributes(Core::GeneratedFile::OpenEditorAttribute);
 
     return (Core::GeneratedFiles() << file);
 }
+
 
 } // namespace ObjectiveCEditor
